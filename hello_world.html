@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="chinese (simplified)">
   <head>
-    <meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=endge, chrome=IE8" />
     <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
-    <title>jiangfei blog - Authors</title>
+    <title>Hello World — jiangfei blog</title>
     <!--[if lte IE 8]><script type="text/javascript" src="/theme/js/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" type="text/css" href="/theme/css/skeleton.css" />
     <link rel="stylesheet" type="text/css" href="/theme/css/theme.css" />
@@ -13,6 +13,10 @@
     <link rel="alternate" type="application/atom+xml"
                            title="jiangfei blog — Flux Atom"
                            href="/" /> 
+
+    <meta name="author"   content="fdfinger" />
+    <meta name="keywords" content="pelican, publishing" />
+    <link rel="stylesheet" media="not print" type="text/css" href="/theme/css/pygments.css" /> 
   </head>
   <body>
     <div id="page">
@@ -23,12 +27,31 @@
       </header>
       
       <div id="page-body">
-        <section id="page-main" role="main">
-    <h1>Authors on jiangfei blog</h1>
-
-    <ul>        <li><a href="/author/fdfinger.html">fdfinger</a> (1)</li>
-    </ul>
-      </section> <!-- /#page-main -->
+        <article class="post" id="page-main" role="main">
+      <header class="post-header">
+        <h1>
+          <a rel="bookmark"
+             href="/hello_world.html"
+             title="Lien permanent vers «Hello World»">
+             Hello World
+          </a>
+        </h1>
+        <div class="meta">
+<!-- includes/article_meta.html -->
+            Le <time datetime="2018-04-19T00:20:00+08:00">周四 19 四月 2018</time>
+            dans «<a href="/category/python.html">Python</a>» 
+            par <a href="/author/fdfinger.html">fdfinger</a>              <br />Mots-clés:              <a rel="tag" href="/tag/pelican.html">pelican</a>,               <a rel="tag" href="/tag/publishing.html">publishing</a>        </div>
+      </header>
+      <div class="post-content"> 
+        <p>试探</p>
+      </div>
+      <footer class="post-footer">
+        <div class="meta">
+            Posté dans «<a href="/category/python.html">Python</a>» 
+            par <a href="/author/fdfinger.html">fdfinger</a><br />
+            Mots-clés:  #<a href="/tag/pelican.html">pelican</a> #<a href="/tag/publishing.html">publishing</a>        </div>
+      </footer>
+      </article> <!-- /#page-main -->
 
         <aside id="page-side">
           <!-- begin includes/sidebar.html -->
@@ -45,7 +68,7 @@
           <nav>
             <h3>Catégories</h3>
             <ul>
-              <li><a href="/category/python.html">Python</a></li>
+              <li class="active"><a href="/category/python.html">Python</a></li>
             </ul>
           </nav>
 
