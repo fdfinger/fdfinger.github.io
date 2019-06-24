@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>指尖江湖物产</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style>
+    body {
+      padding-top: 50px;
+    }
+
+    .sub-header {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .navbar-fixed-top {
+      border: 0;
+    }
+
+    .sidebar {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+      }
+    }
+
+    .nav-sidebar {
+      margin-right: -21px;
+      /* 20px padding + 1px border */
+      margin-bottom: 20px;
+      margin-left: -20px;
+    }
+
+    .nav-sidebar>li>a {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    .nav-sidebar>.active>a,
+    .nav-sidebar>.active>a:hover,
+    .nav-sidebar>.active>a:focus {
+      color: #fff;
+      background-color: #428bca;
+    }
+
+    .main {
+      padding: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .main {
+        padding-right: 40px;
+        padding-left: 40px;
+      }
+    }
+
+    .main .page-header {
+      margin-top: 0;
+    }
+
+    .placeholders {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .placeholders h4 {
+      margin-bottom: 0;
+    }
+
+    .placeholder {
+      margin-bottom: 20px;
+    }
+
+    .placeholder img {
+      display: inline-block;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">指尖江湖物产查询</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#wuchan" rel="nofollow" target="_blank">物产表</a></li>
+          <li><a href="#pengren" rel="nofollow" target="_blank">烹饪</a></li>
+          <li><a href="#pozhao" rel="nofollow" target="_blank">破招</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search..." onblur="search(this.value)">
+          <button type="submit" class="btn btn-default">查询</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li><a href="#wuchan" rel="nofollow" target="_blank">物产表</a></li>
+          <li><a href="#pengren" rel="nofollow" target="_blank">烹饪</a></li>
+          <li><a href="#pozhao" rel="nofollow" target="_blank">破招</a></li>
+        </ul>
+      </div>
+
+      <div id="wuchan" name="wuchan" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      </div>
+
+      <div id="pengren" name="pengren" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      </div>
+
+      <div id="pozhao" name="pozhao" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+  </script>
+  <script>
+    // 导航菜单响应事件
+    $('ul.nav > li').click(function (e) {
+      e.preventDefault();
+      $('ul.nav > li').removeClass('active');
+      $(this).addClass('active');
+      location.hash = this.firstChild.hash;
+    })
+
+    // 物产数据
+    const wuchanData = [{
+        name: '稻香村',
+        data: [{
+            name: '稻香村',
+            data: ['雪莲', '燕窝', '鱼翅']
+          },
+          {
+            name: '稻香村口',
+            data: ['佛珠', '粉黛', '米酒', '菜', '木鱼']
+          },
+          {
+            name: '芙蕖桥',
+            data: ['银耳', '桂花', '虾', '鱼']
+          },
+          {
+            name: '香山野林',
+            data: ['灵芝', '枸杞', '草药', '牡丹']
+          },
+          {
+            name: '稻山山洞',
+            data: ['人参', '芍药', '蛋', '蝴蝶']
+          },
+          {
+            name: '大侠墓',
+            data: ['玄铁', '井水', '烈酒']
+          },
+          {
+            name: '小镜湖',
+            data: ['虫草', '萤火虫', '莲子', '鱼']
+          },
+          {
+            name: '浩气营地',
+            data: ['云板', '马草', '金叶子']
+          },
+          {
+            name: '香山管道',
+            data: ['羽衣', '辣椒', '雪蛤', '井水', '风筝', '炮竹']
+          }
+        ]
+      },
+      {
+        name: '纯阳宫',
+        data: [{
+            name: '纯阳宫',
+            data: ['茶叶', '熏香', '枸杞', '炮竹', '莲子']
+          },
+          {
+            name: '华山山道',
+            data: ['雪莲', '银耳', '风筝']
+          },
+          {
+            name: '纯阳山门',
+            data: ['茶叶', '马草']
+          },
+          {
+            name: '剑园',
+            data: ['纯阳剑牌', '葡萄酒', '井水', '金叶子']
+          },
+          {
+            name: '神策前营',
+            data: ['人参', '木鱼']
+          },
+          {
+            name: '观微阁',
+            data: ['道德经抄本', '雪蛤', '粉黛', '莲子', '蜡烛', '米酒']
+          },
+          {
+            name: '落雁岭',
+            data: ['灵芝', '莲子', '蛋']
+          },
+          {
+            name: '神策后营',
+            data: ['佛珠', '佛器', '鱼翅', '菜']
+          },
+          {
+            name: '百尺峡',
+            data: ['佛经', '食珍录', '金叶子']
+          },
+          {
+            name: '论剑峰',
+            data: ['虫草', '辣椒', '芍药', '牡丹']
+          },
+          {
+            name: '老君宫',
+            data: ['酒葫芦', '纸鸢', '规划']
+          },
+          {
+            name: '九老洞',
+            data: ['雪莲', '玄铁', '萤火虫', '草药']
+          },
+          {
+            name: '思过崖',
+            data: ['道德经抄本', '天灯', '粉黛', '蝴蝶,虾', '烈酒']
+          }
+        ]
+      },
+      {
+        name: '少林寺',
+        data: [{
+            name: '少林寺',
+            data: ['鬼谷兵法', '文房四宝', '桂花', '炮竹']
+          },
+          {
+            name: '嵩山古道',
+            data: ['茶叶', '鱼翅', '米酒']
+          },
+          {
+            name: '齐华村',
+            data: ['佛经', '燕窝', '马草', '牡丹']
+          },
+          {
+            name: '斋堂',
+            data: ['人参', '纸鸢', '鱼', '井水']
+          },
+          {
+            name: '罗汉堂',
+            data: ['佛器', '木鱼']
+          },
+          {
+            name: '梅花桩',
+            data: ['佛珠', '熏香', '蜡烛']
+          },
+          {
+            name: '持国天王殿',
+            data: ['蛋', '草药']
+          },
+          {
+            name: '塔林',
+            data: ['虫草', '纸伞', '莲子']
+          },
+          {
+            name: '望阙坡',
+            data: ['辣椒', '虾', '蝴蝶']
+          },
+          {
+            name: '达摩洞',
+            data: ['玄铁', '萤火虫']
+          },
+          {
+            name: '山林后山',
+            data: ['灵芝', '云板', '枸杞']
+          },
+          {
+            name: '紫竹林',
+            data: ['明光铠', '雪蛤', '芍药']
+          },
+          {
+            name: '藏经阁',
+            data: ['雪莲', '天灯', '菜', '风筝']
+          },
+        ]
+      },
+      {
+        name: '七秀坊',
+        data: [{
+            name: '七秀坊',
+            data: ['鱼翅', '熏香', '木鱼', '菜', '虾']
+          },
+          {
+            name: '水云坊',
+            data: ['粉黛', '马草', '萤火虫', '蝴蝶']
+          },
+          {
+            name: '画舫',
+            data: ['藏宝洞', '纸伞', '炮竹', '马草', '米酒']
+          },
+          {
+            name: '盐湖寨',
+            data: ['玄铁', '燕窝', '芍药', '蝴蝶']
+          },
+          {
+            name: '灵龟坞',
+            data: ['丝绸', '雪蛤', '云板', '米酒']
+          },
+          {
+            name: '碧霞岛',
+            data: ['雪莲', '茶叶', '草药']
+          },
+          {
+            name: '黑岩湾',
+            data: ['灵芝', '金叶子', '莲子', '芍药']
+          },
+          {
+            name: '燕子崖',
+            data: ['藏宝图', '辣椒', '桂花', '草药']
+          },
+          {
+            name: '灵龟岛',
+            data: ['人参', '燕窝', '茶叶', '草药', '蛋', '菜']
+          },
+          {
+            name: '幽雨坪',
+            data: ['绣球', '食珍录', '蜡烛']
+          },
+          {
+            name: '桃花村',
+            data: ['梨园乐谱', '文房四宝', '纸鸢', '风筝', '牡丹']
+          },
+          {
+            name: '绿柳湾',
+            data: ['羽衣', '虾', '芍药', '井水']
+          },
+          {
+            name: '青螺山',
+            data: ['虫草', '芍药', '枸杞']
+          }
+        ]
+      },
+      {
+        name: '天策府',
+        data: [{
+            name: '天策府',
+            data: ['虎牙令', '纸鸢', '桂花', '炮竹']
+          },
+          {
+            name: '潼关',
+            data: ['天灯', '蝴蝶', '蛋', '金叶子']
+          },
+          {
+            name: '望枫桥',
+            data: ['孔明灯', '井水', '鱼', '风筝']
+          },
+          {
+            name: '枫叶泽',
+            data: ['虾', '金叶子', '鱼']
+          },
+          {
+            name: '沁枫谷',
+            data: ['虫草', '辣椒', '菜', '牡丹']
+          },
+          {
+            name: '崤函古道',
+            data: ['明光铠', '马草', '烈酒']
+          },
+          {
+            name: '枫华谷',
+            data: ['鬼谷兵法', '燕窝', '米酒']
+          },
+          {
+            name: '演武大营',
+            data: ['文房四宝', '芍药']
+          },
+          {
+            name: '龙飞营',
+            data: ['熏香', '食珍录', '蛋', '芍药', '枸杞']
+          },
+          {
+            name: '上林苑',
+            data: ['人参', '茶叶', '草药']
+          },
+          {
+            name: '黑虎山',
+            data: ['灵芝', '玄铁', '蝴蝶', '萤火虫']
+          },
+          {
+            name: '伏虎前寨',
+            data: ['丝绸', '银耳', '葡萄酒']
+          },
+          {
+            name: '伏虎后寨',
+            data: ['雪蛤', '木鱼', '蜡烛', '蛋']
+          }
+        ]
+      },
+      {
+        name: '万花',
+        data: [{
+            name: '三星望月',
+            data: ['粉黛', '芍药', '鱼']
+          },
+          {
+            name: '逍遥林',
+            data: ['虫草', '茶叶', '草药']
+          },
+          {
+            name: '黄梁村',
+            data: ['纸伞', '米酒', '蛋']
+          },
+          {
+            name: '落星湖',
+            data: ['雪莲', '鱼翅', '井水']
+          },
+          {
+            name: '生死树',
+            data: ['银耳', '枸杞']
+          },
+          {
+            name: '晴昼海',
+            data: ['人参', '燕窝']
+          },
+          {
+            name: '揽星潭',
+            data: ['灵芝', '辣椒', '虾']
+          },
+          {
+            name: '寻仙径',
+            data: ['罗伞', '葡萄酒', '蜡烛']
+          },
+          {
+            name: '水月宫',
+            data: ['梨园乐谱', '粉黛', '芍药', '莲子']
+          },
+          {
+            name: '仙迹岩',
+            data: ['金针', '文房四宝', '菜', '芍药']
+          },
+          {
+            name: '天工坊外围',
+            data: ['酒葫芦', '蜡烛', '芍药', '马草']
+          },
+          {
+            name: '天工坊密道',
+            data: ['孔明灯', '玄铁', '桂花']
+          }
+        ]
+      }
+    ]
+
+    // 物产页面
+    function wuchanGenic(data) {
+      return data.map(function (i) {
+        console.log(i.name);
+        return `
+            <div class="panel panel-primary">
+              <div class="panel-heading">${i.name}</div>
+              <table class="table table-hover table-bordered">
+                <thead><th>区域</th><th>物产</th></thead>
+                ${i.data.map(function(e){ 
+                  return '<tr><td>'+e.name+'</td><td>'+e.data+'</td></tr>'
+                }).join('')}
+              </table>
+            </div>
+          `
+      }).join('');
+    }
+
+    // 烹饪
+    const pengrenData = [{
+        name: '炖锅',
+        data: [{
+            name: '慈母游子羹',
+            data: ['水', '雪蛤', '蛋', '鸡肉', '豆腐']
+          },
+          {
+            name: '乌雌鸡汤',
+            data: ['水', '鸡肉']
+          },
+          {
+            name: '冰花映月羹',
+            data: ['水', '桂花', '枸杞', '银耳', '糖']
+          },
+          {
+            name: '乱炖',
+            data: ['水', '青菜', '猪肉']
+          },
+          {
+            name: '月桂金丝羹',
+            data: ['水', '桂花', '鱼翅']
+          },
+          {
+            name: '冷蟾儿羹',
+            data: ['水', '银耳', '雪蛤', '桂花', '枸杞']
+          },
+          {
+            name: '革新玛瑙',
+            data: ['水', '银耳', '燕窝', '糖']
+          },
+          {
+            name: '葵花斩肉',
+            data: ['水', '虾', '蛋', '猪肉']
+          },
+          {
+            name: '赐绯雪蟾',
+            data: ['水', '枸杞', '莲子', '雪蛤', '糖']
+          },
+          {
+            name: '十全大补汤',
+            data: ['水', '人生', '雪莲', '虫草', '灵芝']
+          }
+        ]
+      },
+      {
+        name: '烤架',
+        data: [{
+            name: '胡饼',
+            data: ['面']
+          },
+          {
+            name: '烤肉',
+            data: ['猪肉']
+          },
+          {
+            name: '珍珠丸',
+            data: ['糯米']
+          },
+          {
+            name: '江湖炙',
+            data: ['鱼']
+          },
+          {
+            name: '甜雪',
+            data: ['面', '糖']
+          },
+          {
+            name: '光明虾炙',
+            data: ['虾']
+          },
+          {
+            name: '金露酥',
+            data: ['燕窝', '鸡蛋', '面', '糖', '油']
+          }
+        ]
+      },
+      {
+        name: '油锅',
+        data: [{
+            name: '油饼',
+            data: ['油', '面']
+          },
+          {
+            name: '煎豆腐',
+            data: ['油', '鸡蛋']
+          },
+          {
+            name: '稻香饼',
+            data: ['油', '青菜', '面', '蛋']
+          },
+          {
+            name: '龙凤糕',
+            data: ['油', '糯米']
+          },
+          {
+            name: '炸肉',
+            data: ['油', '猪肉']
+          },
+          {
+            name: '葫芦鸡',
+            data: ['油', '鸡肉']
+          },
+          {
+            name: '炸鱼干',
+            data: ['油', '鱼']
+          },
+          {
+            name: '金玉荷包',
+            data: ['油', '蛋']
+          },
+          {
+            name: '见风消',
+            data: ['油', '糖', '糯米']
+          },
+          {
+            name: '过门香',
+            data: ['油', '米', '猪肉']
+          },
+          {
+            name: '凤凰胎',
+            data: ['油', '鱼', '蛋']
+          },
+          {
+            name: '紫虚寒食饼',
+            data: ['油', '面', '水', '蛋']
+          },
+          {
+            name: '红点金酥鸡',
+            data: ['油', '辣椒', '鸡肉']
+          }
+        ]
+      },
+      {
+        name: '蒸锅',
+        data: [{
+            name: '白龙臛',
+            data: ['水', '蛋', '青菜']
+          },
+          {
+            name: '稻谷饭',
+            data: ['水', '米']
+          },
+          {
+            name: '素银夹花',
+            data: ['水', '虾', '鸡肉', '面']
+          },
+          {
+            name: '角黎',
+            data: ['水', '糯米']
+          },
+          {
+            name: '单笼金乳酥',
+            data: ['水', '蛋', '面', '糖']
+          },
+          {
+            name: '石蜜粽子',
+            data: ['水', '糯米', '糖']
+          },
+          {
+            name: '杂脯粽',
+            data: ['水', '猪肉', '糯米']
+          },
+          {
+            name: '水晶桂花糕',
+            data: ['桂花', '枸杞', '糯米']
+          },
+          {
+            name: '茶碗蒸',
+            data: ['蛋', '虾', '糯米', '猪肉']
+          },
+          {
+            name: '金力虾蓉饼',
+            data: ['水', '虾', '面', '糖']
+          },
+          {
+            name: '鸡子羹',
+            data: ['水', '蛋']
+          },
+          {
+            name: '月桂白露羹',
+            data: ['水', '桂花', '莲子', '糖']
+          },
+          {
+            name: '枸怒',
+            data: ['面']
+          },
+          {
+            name: '蒸饼',
+            data: ['水', '面']
+          },
+          {
+            name: '清蒸鲈鱼',
+            data: ['鱼']
+          },
+          {
+            name: '蒸干菜',
+            data: ['菜']
+          },
+          {
+            name: '蒸豚',
+            data: ['猪肉']
+          },
+          {
+            name: '豆腐浆',
+            data: ['豆腐']
+          },
+          {
+            name: '葫芦鸡',
+            data: ['鸡肉']
+          },
+          {
+            name: '玲琅盖种',
+            data: ['猪肉', '豆腐']
+          },
+          {
+            name: '西江料',
+            data: ['水', '青菜', '面', '猪肉']
+          },
+          {
+            name: '荷包蛋',
+            data: ['蛋', '虾', '糯米', '猪肉']
+          },
+          {
+            name: '银颗金丝饭',
+            data: ['水', '鱼翅', '米']
+          }
+        ]
+      },
+      {
+        name: '煮锅',
+        data: [{
+            name: '玉米粒',
+            data: ['水', '米', '糖']
+          },
+          {
+            name: '浆水粥',
+            data: ['水', '青菜', '米']
+          },
+          {
+            name: '莲子粥',
+            data: ['水', '莲子', '米', '糖']
+          },
+          {
+            name: '黑玉生滚',
+            data: ['	水', '蛋', '米', '猪肉']
+          },
+          {
+            name: '杂菜汤',
+            data: ['水', '青菜', '糖']
+          },
+          {
+            name: '白玉鱼',
+            data: ['水', '鱼翅', '米']
+          },
+          {
+            name: '白水虾',
+            data: ['水', '虾']
+          },
+          {
+            name: '白水鱼',
+            data: ['水', '鱼']
+          },
+          {
+            name: '白水肉',
+            data: ['水', '猪肉']
+          },
+          {
+            name: '馎饦',
+            data: ['水', '面']
+          },
+          {
+            name: '含香粽子',
+            data: ['水', '米', '糯米']
+          },
+          {
+            name: '玉皇王母饭',
+            data: ['水', '米', '猪肉']
+          },
+          {
+            name: '雪纯羹',
+            data: ['水', '青菜', '鱼', '米']
+          },
+          {
+            name: '百岁羹',
+            data: ['水', '青菜', '豆腐']
+          },
+          {
+            name: '落雁雪酿鱼',
+            data: ['水', '青菜', '鱼', '豆腐']
+          },
+          {
+            name: '生进24气馄饨',
+            data: ['水', '青菜', '虾', '猪肉', '面']
+          },
+          {
+            name: '饮中仙',
+            data: ['米酒', '桂花', '蛋', '糯米', '糖']
+          },
+          {
+            name: '红河白龙',
+            data: ['辣椒', '豆腐', '油']
+          },
+          {
+            name: '七返膏',
+            data: ['水', '蛋', '面', '油']
+          },
+          {
+            name: '汉宫棋',
+            data: ['水', '鱼翅', '虾', '鸡肉', '面']
+          },
+          {
+            name: '赤霄',
+            data: ['水', '辣椒', '鱼', '菜', '豆腐']
+          }
+        ]
+      }
+    ];
+
+    // 烹饪
+    function pengrenGenic(data) {
+      return data.map(function (i) {
+        return '<div class="panel panel-success">' +
+          '<div class="panel-heading">' + i.name + '</div>' +
+          '<table class="table table-hover table-bordered">' +
+          '<thead><th>菜品</th><th>食材</th></thead><tbody>' +
+          i.data.map(function (e) {
+            return '<tr><td>' + e.name + '</td><td>' + e.data + '</td></tr>'
+          }).join('') +
+          '</tbody></table>' +
+          '</div>';
+      }).join('');
+    };
+
+    const pozhaoData = [{
+        name: '董豹',
+        data: '长兵'
+      },
+      {
+        name: '宫傲',
+        data: '奇兵'
+      },
+      {
+        name: '萧沙',
+        data: '奇兵'
+      },
+      {
+        name: '李霸天',
+        data: '长兵'
+      },
+      {
+        name: '波诗诗',
+        data: '气劲'
+      },
+      {
+        name: '胡鞑',
+        data: '奇兵'
+      },
+      {
+        name: '宇文敌',
+        data: '拳脚'
+      },
+      {
+        name: '方鹤影',
+        data: '气劲'
+      },
+      {
+        name: '庞龙武',
+        data: '长兵'
+      },
+      {
+        name: '长野次郎',
+        data: '气劲'
+      },
+      {
+        name: '鬼影小次郎',
+        data: '长兵'
+      },
+      {
+        name: '董龙',
+        data: '长兵'
+      },
+      {
+        name: '血鹰',
+        data: '长兵'
+      },
+      {
+        name: '艾黎',
+        data: '奇兵'
+      },
+      {
+        name: '宇文灭',
+        data: '拳脚'
+      },
+      {
+        name: '索笛尔',
+        data: '短兵'
+      },
+      {
+        name: '玛索',
+        data: '驭驶'
+      },
+      {
+        name: '伊藤惠',
+        data: '短兵'
+      },
+      {
+        name: '陈和尚',
+        data: '长兵'
+      },
+      {
+        name: '徐归道',
+        data: '奇兵'
+      },
+      {
+        name: '机甲雷神',
+        data: '短兵'
+      },
+      {
+        name: '无命哈哈',
+        data: '短兵'
+      },
+      {
+        name: '方曾国',
+        data: '短兵'
+      },
+      {
+        name: '机甲黑龙',
+        data: '长兵'
+      },
+      {
+        name: '沈眠风',
+        data: '短兵'
+      },
+      {
+        name: '独孤霸',
+        data: '拳脚'
+      },
+      {
+        name: '恨歌',
+        data: '拳脚'
+      },
+      {
+        name: '白骨无情',
+        data: '拳腳'
+      },
+      {
+        name: '阿幼朵',
+        data: '气劲'
+      },
+      {
+        name: '肖药儿',
+        data: '气劲'
+      },
+      {
+        name: '金鹰',
+        data: '气劲'
+      }
+    ];
+
+    function pozhaoGenic(data) {
+      return `<div class="panel panel-primary">
+                  <div class="panel-heading">破招</div>
+                  <table class="table table-hover table-bordered">
+                    <thead><th>悬赏首领</th><th>破招</th></thead>
+                    ${data.map(function(e){ 
+                      return '<tr><td>'+e.name+'</td><td>'+e.data+'</td></tr>'
+                    }).join('')}
+                  </table>
+                </div>`
+    };
+
+    function init() {
+      document.querySelector('#wuchan').innerHTML = '<h1 class="page-header">物产表</h1>' + wuchanGenic(wuchanData);
+      document.querySelector('#pengren').innerHTML = '<h1 class="page-header">食谱</h1>' + pengrenGenic(pengrenData);
+      document.querySelector('#pozhao').innerHTML = '<h1 class="page-header">破招</h1>' + pozhaoGenic(pozhaoData);
+    };
+
+    function search(value) {
+      if (!value) {
+        init();
+      } else {
+        const _wuchanData = wuchanData.map(function (e) {
+          return ({
+            name: e.name,
+            data: e.data.filter(function (_wuchanChild) {
+              return _wuchanChild.data.includes(value)
+            })
+          })
+        })
+        document.querySelector('#wuchan').innerHTML = '<h1 class="page-header">物产表</h1>' + wuchanGenic(_wuchanData);
+
+        const _pengrenData = pengrenData.map(function (e) {
+          return ({
+            name: e.name,
+            data: e.data.filter(function (i) {
+              return i.data.includes(value) || i.name.indexOf(value) >= 0
+            })
+          })
+        })
+        document.querySelector('#pengren').innerHTML = '<h1 class="page-header">食谱</h1>' + pengrenGenic(_pengrenData);
+
+        const _pozhaoData = pozhaoData.filter(function (e) {
+          return e.name.indexOf(value) >= 0;
+        })
+        document.querySelector('#pozhao').innerHTML = '<h1 class="page-header">破招</h1>' + pozhaoGenic(_pozhaoData);
+      }
+    };
+
+    window.onload = function () {
+      init();
+    }
+  </script>
+</body>
+
+</html>
