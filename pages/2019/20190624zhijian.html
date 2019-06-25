@@ -6,8 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="指尖江湖工具包">
+  <meta name="author" content="jiangfei">
+  <meta name="keywords" content="指尖江湖,剑网三,破招" />
   <title>指尖江湖物产</title>
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
@@ -122,8 +123,7 @@
           <li><a href="#pozhao" rel="nofollow" target="_blank">破招</a></li>
         </ul>
         <form class="navbar-form navbar-right">
-          <input type="text" class="form-control" placeholder="Search..." onblur="search(this.value)">
-          <button type="submit" class="btn btn-default">查询</button>
+          <input type="search" class="form-control" placeholder="关键字..." onkeydown="search(this.value)">
         </form>
       </div>
     </div>
@@ -138,6 +138,28 @@
           <li><a href="#pengren" rel="nofollow" target="_blank">烹饪</a></li>
           <li><a href="#pozhao" rel="nofollow" target="_blank">破招</a></li>
         </ul>
+        <div>
+          <p><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> 喜欢就收藏 (Ctrl+D)</p>
+          <p><a href="mailto:jiangfei.ng@foxmail.com?subject=意见反馈&body=建议内容">
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> jiangfei.ng@foxmail.com
+          </a></p>
+          <p>
+            <a href="https://github.com/fdfinger/" target="_blank">
+              <span class="glyphicon glyphicon-tower" aria-hidden="true"></span> fdfinger
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="form-inline">
+          <label class="sr-only" for="inlineFormInput">关键字</label>
+          <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="关键字">
+          <button class="btn btn-primary mb-2"
+            onclick="search(document.getElementById('inlineFormInput').value)">查询</button>
+          <button class="btn btn-default mb-2"
+            onclick="document.getElementById('inlineFormInput').value = ''">重置</button>
+        </div>
       </div>
 
       <div id="wuchan" name="wuchan" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -492,8 +514,9 @@
 
     // 物产页面
     function wuchanGenic(data) {
+      if (data.length == 0) return '';
       return data.map(function (i) {
-        console.log(i.name);
+        if (i.data.length == 0) return '';
         return `
             <div class="panel panel-primary">
               <div class="panel-heading">${i.name}</div>
@@ -829,7 +852,9 @@
 
     // 烹饪
     function pengrenGenic(data) {
+      if (data.length == 0) return '';
       return data.map(function (i) {
+        if (i.data.length == 0) return '';
         return '<div class="panel panel-success">' +
           '<div class="panel-heading">' + i.name + '</div>' +
           '<table class="table table-hover table-bordered">' +
@@ -969,7 +994,8 @@
     ];
 
     function pozhaoGenic(data) {
-      return `<div class="panel panel-primary">
+      if (data.length == 0) return '';
+      else return `<div class="panel panel-primary">
                   <div class="panel-heading">破招</div>
                   <table class="table table-hover table-bordered">
                     <thead><th>悬赏首领</th><th>破招</th></thead>
@@ -998,7 +1024,8 @@
             })
           })
         })
-        document.querySelector('#wuchan').innerHTML = '<h1 class="page-header">物产表</h1>' + wuchanGenic(_wuchanData);
+        const _wuchanGenic = wuchanGenic(_wuchanData);
+        document.querySelector('#wuchan').innerHTML = _wuchanGenic ? '<h1 class="page-header">物产表</h1>' + _wuchanGenic : '';
 
         const _pengrenData = pengrenData.map(function (e) {
           return ({
@@ -1008,12 +1035,14 @@
             })
           })
         })
-        document.querySelector('#pengren').innerHTML = '<h1 class="page-header">食谱</h1>' + pengrenGenic(_pengrenData);
+        const _pengrenGenic = pengrenGenic(_pengrenData);
+        document.querySelector('#pengren').innerHTML = _pengrenGenic ? '<h1 class="page-header">食谱</h1>' + _pengrenGenic : '';
 
         const _pozhaoData = pozhaoData.filter(function (e) {
           return e.name.indexOf(value) >= 0;
         })
-        document.querySelector('#pozhao').innerHTML = '<h1 class="page-header">破招</h1>' + pozhaoGenic(_pozhaoData);
+        const _pozhaoGenic = pozhaoGenic(_pozhaoData);
+        document.querySelector('#pozhao').innerHTML = _pozhaoGenic ? '<h1 class="page-header">破招</h1>' + _pozhaoGenic : '';
       }
     };
 
