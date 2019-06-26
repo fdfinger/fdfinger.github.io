@@ -99,6 +99,18 @@
       display: inline-block;
       border-radius: 50%;
     }
+    .darkmode--activated p, .darkmode--activated li {
+      color: #000;
+    }
+    .button {
+      isolation: isolate;
+    }
+    .darkmode--activated .logo {
+      mix-blend-mode: difference;
+    }
+    .darkmode-layer, .darkmode-toggle {
+      z-index: 500;
+    }
   </style>
 </head>
 
@@ -184,7 +196,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.3.4/lib/darkmode-js.min.js"></script>
   <script>
+    new Darkmode().showWidget();
     // 导航菜单响应事件
     $('ul.nav > li').click(function (e) {
       e.preventDefault();
@@ -206,7 +220,7 @@
           },
           {
             name: '芙蕖桥',
-            data: ['银耳', '桂花', '虾', '鱼']
+            data: ['银耳', '桂花', '虾']
           },
           {
             name: '香山野林',
@@ -418,7 +432,7 @@
           },
           {
             name: '枫叶泽',
-            data: ['虾', '金叶子', '鱼']
+            data: ['虾', '金叶子', '桂花']
           },
           {
             name: '沁枫谷',
