@@ -44,6 +44,11 @@
   <link rel="stylesheet" type="text/css" href="/theme/css/pygment.min.css" />
   <script src="/theme/js/uikit.min.js"></script>
   <title>Welcome! | jiangfei blog</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+  </style>
 
 </head>
 
@@ -57,45 +62,8 @@
       <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas=""></a>
       <div class="uk-navbar-brand uk-navbar-center uk-visible-small">jiangfei blog</div>
     </nav>
-    <div class="uk-grid" data-uk-grid-margin="">
-      <main class="uk-width-medium-3-4">
-        <h1 class="heading uk-text-primary">
-
-        </h1>
-        <h1 class=" uk-article-title">
-          <a href="/hello_world.html">Hello World</a>
-        </h1>
-        <p class="uk-article-meta">
-          Published on <time datetime="2018-04-19">周四 19 四月 2018</time>
-          by <a class="url fn" href="/author/fdfinger.html">fdfinger</a>
-          posted in <a href="/category/python.html">Python</a>
-          <br />
-          <a href="/tag/pelican.html" class="uk-icon-tag">pelican</a>
-          <a href="/tag/publishing.html" class="uk-icon-tag">publishing</a>
-
-        </p>
-        <p>啊哈</p>
-        <p>
-          <a class="uk-button uk-button-primary" href="/hello_world.html">Continue Reading</a>
-          <!--
-        <a class="uk-button" href="">Comments</a>
-        -->
-        </p>
-      </main>
-
-      <main class="uk-width-medium-3-4">
-        <h1 class="heading uk-text-primary">
-
-        </h1>
-        <h1 class=" uk-article-title">
-          <a href="/pages/2019/20190624zhijian.html">指尖江湖物产</a>
-        </h1>
-        <p>
-          <a class="uk-button uk-button-primary" href="/pages/2019/20190624zhijian.html">去看看</a>
-        </p>
-      </main>
-
-      <aside class="uk-width-medium-1-4">
+    <div class="uk-grid" id="uk-grid">
+      <aside class="uk-width-medium-1-4" style="float:right;">
         <div class="uk-panel uk-panel-box uk-text-center">
           <a href="/author/jiangfei.html">
             <img alt="A picture of the author of this content." class="uk-border-circle" src="/theme/img/author.svg" />
@@ -157,6 +125,48 @@
       </ul>
     </div>
   </div>
+
+  <script>
+    function getData() {
+      fetch('/json/page.json')
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(res){
+          renderData(res);
+        })
+    }
+
+    function renderData(params){
+      let cardList = document.getElementById('uk-grid')
+      const end = document.getElementsByClassName("uk-width-medium-1-4")[0]
+      cardList.innerHTML = params.map(function(item){
+        return `<main class="uk-width-medium-3-4">
+              <h1 class="heading uk-text-primary">
+              </h1>
+              <h1 class=" uk-article-title">
+                <a href="${item.url}">${item.name}</a>
+              </h1>
+              <p class="uk-article-meta">
+                  Published on <time datetime="${item.date}">${item.date}</time>
+                  by <a class="url fn" href="/author/fdfinger.html">fdfinger</a>
+                  <br />
+                </p>
+              <p>${item.desc}</p>
+              <p><a class="uk-button uk-button-primary" href="${item.url}">去看看</a></p>
+            </main>`
+      }).join('')
+      cardList.insertBefore(end, document.getElementsByClassName('uk-width-medium-3-4')[1])
+    }
+
+    function init(){
+      getData();
+    }
+
+    window.onload = function () {
+      init();
+    }
+  </script>
 </body>
 
 </html>
