@@ -40,10 +40,10 @@ class HttpRequest {
 
 
 const getPage = function(){
-  const Req = new HttpRequest('./json/page.json')
+  const Req = new HttpRequest('http://fdfinger.github.io/json/page.json')
   return Req.get()
 }
 const getBlog = function(){
-  const Req = new HttpRequest('./json/blog.json')
+  const Req = new HttpRequest('http://fdfinger.github.io/json/blog.json')
   return Req.get()
 }
