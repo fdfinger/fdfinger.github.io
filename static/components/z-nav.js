@@ -15,9 +15,8 @@ customElements.define('z-nav',
         <div class="navbar-brand">
           <a href="http://fdfinger.github.io/" class="navbar-item"><strong>JiangFei</strong><span style="color: #00d1b2"> 江飞</span>.io</a>
           <button class="button navbar-burger" data-target="navbar_menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span><a href="/" class="navbar-item">主页</a></span>
+            <span><a href="/blog" class="navbar-item">博客</a></span>
           </button>
           </div>
         <div class="navbar-menu" id="navbar_menu">
@@ -28,16 +27,6 @@ customElements.define('z-nav',
             <a href="/blog" class="navbar-item">
               博客
             </a>
-            <!-- <div class="navbar-item has-dropdown is-hoverable">
-              <a href="" class="navbar-link">
-                Projects
-              </a>
-              <div class="navbar-dropdown">
-                <a href="" class="navbar-item">
-                  Python Simple DI
-                </a>
-              </div>
-            </div>-->
           </div>
           <div class="navbar-end">
             <a href="http://github.com/fdfinger" target="_blank" class="navbar-item is-black">

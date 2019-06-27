@@ -13,11 +13,111 @@
   <header>
     <z-nav></z-nav>
   </header>
-  <div>
-    <section class="section">
-
+  <div id="blog">
+    <div class="columns">
+      <div class="column">
+        <section class="hero is-primary">
+          <div class="hero-body">
+            <div class="level">
+              <div class="level-left">
+                <div class="container">
+                  <h1 class="title">列表页</h1>
+                  <h2 class="subtitle">不清楚</h2>
+                </div>
+              </div>
+              <div class="level-right">
+                <a href="#" class="button is-danger">去瞅瞅</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="column">
+        <section class="hero is-primary">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">列表页</h1>
+              <h2 class="subtitle">不清楚</h2>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="column">
+        <section class="hero is-primary">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">列表页</h1>
+              <h2 class="subtitle">不清楚</h2>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <section class="hero is-primary is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-mobile">
+            <div class="column">
+              <h1 class="title">列表页</h1>
+              <h2 class="subtitle">不清楚</h2>
+            </div>
+            <div class="column">
+              <a class="button is-link">去瞅瞅</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
-  blog列表页
+  <script>
+    function getData() {
+      getBlog()
+        .then(function(res){
+          renderData(res);
+        })
+    }
+    function getColumns (params) {
+      let _new = document.createElement('div');
+      _new.className = 'columns';
+      _new.innerHTML = params.map(function(i){
+        return `
+          <div class="column">
+            <section class="hero is-primary">
+              <div class="hero-body">
+                <div class="level">
+                  <div class="level-left">
+                    <div class="container">
+                      <h1 class="title">${i.title}</h1>
+                      <h2 class="subtitle">${i.subtitle}</h2>
+                    </div>
+                  </div>
+                  <div class="level-right">
+                    <a href="${i.url}" class="button is-danger" target="_blank">去瞅瞅</a>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        `
+      }).join('');
+      return _new;
+    }
+
+    function renderData(params){
+      let cardList = document.getElementById('blog')
+      const paramsLength = params.length / 4;
+      for(let o=0; o<paramsLength;o++){
+        cardList.appendChild(getColumns(params.splice(0, 4)))
+      }
+    }
+
+    function init(){
+      getData();
+    }
+
+    window.onload = function () {
+      init();
+    }
+  </script>
 </body>
 </html>

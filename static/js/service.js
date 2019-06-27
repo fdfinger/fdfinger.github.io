@@ -43,3 +43,7 @@ const getPage = function(){
   const Req = new HttpRequest('./json/page.json')
   return Req.get()
 }
+const getBlog = function(){
+  const Req = new HttpRequest('./json/blog.json')
+  return Req.get()
+}
