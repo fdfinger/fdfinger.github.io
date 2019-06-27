@@ -15,7 +15,7 @@ const _scriptElement = function (e) {
 // 注册函数
 const _install  = function () {
   for(let i of componentsScriptList) {
-    document.head.appendChild(_scriptElement(`./static/components/${i}.js`))
+    document.head.appendChild(_scriptElement(`http://fdfinger.github.io/static/components/${i}.js`))
   }
 }
 
