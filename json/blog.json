@@ -4,5 +4,11 @@
     "subtitle": "这是一个简单的页面。。",
     "url": "/blog/2019/20190627.html",
     "date": "2019-06-26 17:49:33"
+  },
+  {
+    "title": "vue学习",
+    "subtitle": "vue学习以及部分模版",
+    "url": "/blog/2019/20190701vue_template.html",
+    "date": "2019-07-01 17:40:33"
   }
 ]

@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>vue_template</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css">
+  <script type="text/javascript" src="http://fdfinger.github.io/static/components/index.js" defer></script>
+  <style>
+    code[class*="language-"],
+    pre[class*="language-"] {
+      color: #333;
+      background: none;
+      font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.4;
+
+      -moz-tab-size: 8;
+      -o-tab-size: 8;
+      tab-size: 8;
+
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+    }
+
+    /* Code blocks */
+    pre[class*="language-"] {
+      padding: .8em;
+      overflow: auto;
+      /* border: 1px solid #ddd; */
+      border-radius: 3px;
+      /* background: #fff; */
+      background: #f5f5f5;
+    }
+
+    /* Inline code */
+    :not(pre)>code[class*="language-"] {
+      padding: .1em;
+      border-radius: .3em;
+      white-space: normal;
+      background: #f5f5f5;
+    }
+
+    .token.comment,
+    .token.blockquote {
+      color: #969896;
+    }
+
+    .token.cdata {
+      color: #183691;
+    }
+
+    .token.doctype,
+    .token.punctuation,
+    .token.variable,
+    .token.macro.property {
+      color: #333;
+    }
+
+    .token.operator,
+    .token.important,
+    .token.keyword,
+    .token.rule,
+    .token.builtin {
+      color: #a71d5d;
+    }
+
+    .token.string,
+    .token.url,
+    .token.regex,
+    .token.attr-value {
+      color: #183691;
+    }
+
+    .token.property,
+    .token.number,
+    .token.boolean,
+    .token.entity,
+    .token.atrule,
+    .token.constant,
+    .token.symbol,
+    .token.command,
+    .token.code {
+      color: #0086b3;
+    }
+
+    .token.tag,
+    .token.selector,
+    .token.prolog {
+      color: #63a35c;
+    }
+
+    .token.function,
+    .token.namespace,
+    .token.pseudo-element,
+    .token.class,
+    .token.class-name,
+    .token.pseudo-class,
+    .token.id,
+    .token.url-reference .token.variable,
+    .token.attr-name {
+      color: #795da3;
+    }
+
+    .token.entity {
+      cursor: help;
+    }
+
+    .token.title,
+    .token.title .token.punctuation {
+      font-weight: bold;
+      color: #1d3e81;
+    }
+
+    .token.list {
+      color: #ed6a43;
+    }
+
+    .token.inserted {
+      background-color: #eaffea;
+      color: #55a532;
+    }
+
+    .token.deleted {
+      background-color: #ffecec;
+      color: #bd2c00;
+    }
+
+    .token.bold {
+      font-weight: bold;
+    }
+
+    .token.italic {
+      font-style: italic;
+    }
+
+
+    /* JSON */
+    .language-json .token.property {
+      color: #183691;
+    }
+
+    .language-markup .token.tag .token.punctuation {
+      color: #333;
+    }
+
+    /* CSS */
+    code.language-css,
+    .language-css .token.function {
+      color: #0086b3;
+    }
+
+    /* YAML */
+    .language-yaml .token.atrule {
+      color: #63a35c;
+    }
+
+    code.language-yaml {
+      color: #183691;
+    }
+
+    /* Ruby */
+    .language-ruby .token.function {
+      color: #333;
+    }
+
+    /* Markdown */
+    .language-markdown .token.url {
+      color: #795da3;
+    }
+
+    /* Makefile */
+    .language-makefile .token.symbol {
+      color: #795da3;
+    }
+
+    .language-makefile .token.variable {
+      color: #183691;
+    }
+
+    .language-makefile .token.builtin {
+      color: #0086b3;
+    }
+
+    /* Bash */
+    .language-bash .token.keyword {
+      color: #0086b3;
+    }
+
+    /* highlight */
+    pre[data-line] {
+      position: relative;
+      padding: 1em 0 1em 3em;
+    }
+
+    pre[data-line] .line-highlight-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+      display: block;
+      width: 100%;
+    }
+
+    pre[data-line] .line-highlight {
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: inherit 0;
+      margin-top: 1em;
+      background: hsla(24, 20%, 50%, .08);
+      background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
+      pointer-events: none;
+      line-height: inherit;
+      white-space: pre;
+    }
+
+    pre[data-line] .line-highlight:before,
+    pre[data-line] .line-highlight[data-end]:after {
+      content: attr(data-start);
+      position: absolute;
+      top: .4em;
+      left: .6em;
+      min-width: 1em;
+      padding: 0 .5em;
+      background-color: hsla(24, 20%, 50%, .4);
+      color: hsl(24, 20%, 95%);
+      font: bold 65%/1.5 sans-serif;
+      text-align: center;
+      vertical-align: .3em;
+      border-radius: 999px;
+      text-shadow: none;
+      box-shadow: 0 1px white;
+    }
+
+    pre[data-line] .line-highlight[data-end]:after {
+      content: attr(data-end);
+      top: auto;
+      bottom: .4em;
+    }
+
+    html body {
+      font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+      overflow: initial;
+      box-sizing: border-box;
+      word-wrap: break-word
+    }
+
+    html body>:first-child {
+      margin-top: 0
+    }
+
+    html body h1,
+    html body h2,
+    html body h3,
+    html body h4,
+    html body h5,
+    html body h6 {
+      line-height: 1.2;
+      margin-top: 1em;
+      margin-bottom: 16px;
+      color: #000
+    }
+
+    html body h1 {
+      font-size: 2.25em;
+      font-weight: 300;
+      padding-bottom: .3em
+    }
+
+    html body h2 {
+      font-size: 1.75em;
+      font-weight: 400;
+      padding-bottom: .3em
+    }
+
+    html body h3 {
+      font-size: 1.5em;
+      font-weight: 500
+    }
+
+    html body h4 {
+      font-size: 1.25em;
+      font-weight: 600
+    }
+
+    html body h5 {
+      font-size: 1.1em;
+      font-weight: 600
+    }
+
+    html body h6 {
+      font-size: 1em;
+      font-weight: 600
+    }
+
+    html body h1,
+    html body h2,
+    html body h3,
+    html body h4,
+    html body h5 {
+      font-weight: 600
+    }
+
+    html body h5 {
+      font-size: 1em
+    }
+
+    html body h6 {
+      color: #5c5c5c
+    }
+
+    html body strong {
+      color: #000
+    }
+
+    html body del {
+      color: #5c5c5c
+    }
+
+    html body a:not([href]) {
+      color: inherit;
+      text-decoration: none
+    }
+
+    html body a {
+      color: #08c;
+      text-decoration: none
+    }
+
+    html body a:hover {
+      color: #00a3f5;
+      text-decoration: none
+    }
+
+    html body img {
+      max-width: 100%
+    }
+
+    html body>p {
+      margin-top: 0;
+      margin-bottom: 16px;
+      word-wrap: break-word
+    }
+
+    html body>ul,
+    html body>ol {
+      margin-bottom: 16px
+    }
+
+    html body ul,
+    html body ol {
+      padding-left: 2em
+    }
+
+    html body ul.no-list,
+    html body ol.no-list {
+      padding: 0;
+      list-style-type: none
+    }
+
+    html body ul ul,
+    html body ul ol,
+    html body ol ol,
+    html body ol ul {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    html body li {
+      margin-bottom: 0
+    }
+
+    html body li.task-list-item {
+      list-style: none
+    }
+
+    html body li>p {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    html body .task-list-item-checkbox {
+      margin: 0 .2em .25em -1.8em;
+      vertical-align: middle
+    }
+
+    html body .task-list-item-checkbox:hover {
+      cursor: pointer
+    }
+
+    html body blockquote {
+      margin: 16px 0;
+      font-size: inherit;
+      padding: 0 15px;
+      color: #5c5c5c;
+      border-left: 4px solid #d6d6d6
+    }
+
+    html body blockquote>:first-child {
+      margin-top: 0
+    }
+
+    html body blockquote>:last-child {
+      margin-bottom: 0
+    }
+
+    html body hr {
+      height: 4px;
+      margin: 32px 0;
+      background-color: #d6d6d6;
+      border: 0 none
+    }
+
+    html body table {
+      margin: 10px 0 15px 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+      display: block;
+      width: 100%;
+      overflow: auto;
+      word-break: normal;
+      word-break: keep-all
+    }
+
+    html body table th {
+      font-weight: bold;
+      color: #000
+    }
+
+    html body table td,
+    html body table th {
+      border: 1px solid #d6d6d6;
+      padding: 6px 13px
+    }
+
+    html body dl {
+      padding: 0
+    }
+
+    html body dl dt {
+      padding: 0;
+      margin-top: 16px;
+      font-size: 1em;
+      font-style: italic;
+      font-weight: bold
+    }
+
+    html body dl dd {
+      padding: 0 16px;
+      margin-bottom: 16px
+    }
+
+    html body code {
+      font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+      font-size: .85em !important;
+      color: #000;
+      background-color: #f0f0f0;
+      border-radius: 3px;
+      padding: .2em 0
+    }
+
+    html body code::before,
+    html body code::after {
+      letter-spacing: -0.2em;
+      content: "\00a0"
+    }
+
+    html body pre>code {
+      padding: 0;
+      margin: 0;
+      font-size: .85em !important;
+      word-break: normal;
+      white-space: pre;
+      background: transparent;
+      border: 0
+    }
+
+    html body .highlight {
+      margin-bottom: 16px
+    }
+
+    html body .highlight pre,
+    html body pre {
+      padding: 1em;
+      overflow: auto;
+      font-size: .85em !important;
+      line-height: 1.45;
+      border: #d6d6d6;
+      border-radius: 3px
+    }
+
+    html body .highlight pre {
+      margin-bottom: 0;
+      word-break: normal
+    }
+
+    html body pre code,
+    html body pre tt {
+      display: inline;
+      max-width: initial;
+      padding: 0;
+      margin: 0;
+      overflow: initial;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0
+    }
+
+    html body pre code:before,
+    html body pre tt:before,
+    html body pre code:after,
+    html body pre tt:after {
+      content: normal
+    }
+
+    html body p,
+    html body blockquote,
+    html body ul,
+    html body ol,
+    html body dl,
+    html body pre {
+      margin-top: 0;
+      margin-bottom: 16px
+    }
+
+    html body kbd {
+      color: #000;
+      border: 1px solid #d6d6d6;
+      border-bottom: 2px solid #c7c7c7;
+      padding: 2px 4px;
+      background-color: #f0f0f0;
+      border-radius: 3px
+    }
+
+    @media print {
+      html body {
+        background-color: #fff
+      }
+
+      html body h1,
+      html body h2,
+      html body h3,
+      html body h4,
+      html body h5,
+      html body h6 {
+        color: #000;
+        page-break-after: avoid
+      }
+
+      html body blockquote {
+        color: #5c5c5c
+      }
+
+      html body pre {
+        page-break-inside: avoid
+      }
+
+      html body table {
+        display: table
+      }
+
+      html body img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%
+      }
+
+      html body pre,
+      html body code {
+        word-wrap: break-word;
+        white-space: pre
+      }
+    }
+
+    .markdown-preview {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box
+    }
+
+    .markdown-preview .pagebreak,
+    .markdown-preview .newpage {
+      page-break-before: always
+    }
+
+    .markdown-preview pre.line-numbers {
+      position: relative;
+      padding-left: 3.8em;
+      counter-reset: linenumber
+    }
+
+    .markdown-preview pre.line-numbers>code {
+      position: relative
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows {
+      position: absolute;
+      pointer-events: none;
+      top: 1em;
+      font-size: 100%;
+      left: 0;
+      width: 3em;
+      letter-spacing: -1px;
+      border-right: 1px solid #999;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows>span {
+      pointer-events: none;
+      display: block;
+      counter-increment: linenumber
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows>span:before {
+      content: counter(linenumber);
+      color: #999;
+      display: block;
+      padding-right: .8em;
+      text-align: right
+    }
+
+    .markdown-preview .mathjax-exps .MathJax_Display {
+      text-align: center !important
+    }
+
+    .markdown-preview:not([for="preview"]) .code-chunk .btn-group {
+      display: none
+    }
+
+    .markdown-preview:not([for="preview"]) .code-chunk .status {
+      display: none
+    }
+
+    .markdown-preview:not([for="preview"]) .code-chunk .output-div {
+      margin-bottom: 16px
+    }
+
+    .scrollbar-style::-webkit-scrollbar {
+      width: 8px
+    }
+
+    .scrollbar-style::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent
+    }
+
+    .scrollbar-style::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(150, 150, 150, 0.66);
+      border: 4px solid rgba(150, 150, 150, 0.66);
+      background-clip: content-box
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]) {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      overflow: auto
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+      position: relative;
+      top: 0
+    }
+
+    @media screen and (min-width:914px) {
+      html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+        padding: 2em calc(50% - 457px + 2em)
+      }
+    }
+
+    @media screen and (max-width:914px) {
+      html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+        padding: 2em
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+        font-size: 14px !important;
+        padding: 1em
+      }
+    }
+
+    @media print {
+      html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn {
+        display: none
+      }
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn {
+      position: fixed;
+      bottom: 8px;
+      left: 8px;
+      font-size: 28px;
+      cursor: pointer;
+      color: inherit;
+      z-index: 99;
+      width: 32px;
+      text-align: center;
+      opacity: .4
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn {
+      opacity: 1
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 100%;
+      padding: 32px 0 48px 0;
+      font-size: 14px;
+      box-shadow: 0 0 4px rgba(150, 150, 150, 0.33);
+      box-sizing: border-box;
+      overflow: auto;
+      background-color: inherit
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar {
+      width: 8px
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(150, 150, 150, 0.66);
+      border: 4px solid rgba(150, 150, 150, 0.66);
+      background-clip: content-box
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a {
+      text-decoration: none
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul {
+      padding: 0 1.6em;
+      margin-top: .8em
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li {
+      margin-bottom: .8em
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul {
+      list-style-type: none
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+      left: 300px;
+      width: calc(100% - 300px);
+      padding: 2em calc(50% - 457px - 150px);
+      margin: 0;
+      box-sizing: border-box
+    }
+
+    @media screen and (max-width:1274px) {
+      html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+        padding: 2em
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+        width: 100%
+      }
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview {
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc {
+      display: none
+    }
+
+    /* Please visit the URL below for more information: */
+    /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+  </style>
+</head>
+
+<body for="html-export">
+  <header>
+    <z-nav></z-nav>
+  </header>
+  <div class="mume markdown-preview  ">
+    <ul>
+      <li><a href="#packagejson"> package.json<br>
+        </a></li>
+      <li><a href="#router"> router<br>
+        </a></li>
+      <li><a href="#store"> store<br>
+        </a></li>
+      <li><a href="#axios"> axios<br>
+        </a></li>
+      <li><a href="#%E7%BB%84%E4%BB%B6"> &#x7EC4;&#x4EF6;<br>
+        </a>
+        <ul>
+          <li><a href="#%E7%BA%AF%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6"> &#x7EAF;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;<br>
+            </a></li>
+        </ul>
+      </li>
+      <li><a href="#%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2">
+          &#x524D;&#x7AEF;&#x4EE3;&#x7801;&#x90E8;&#x7F72;<br>
+        </a></li>
+      <li><a href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%9D%E6%B3%95">
+          &#x6027;&#x80FD;&#x4F18;&#x5316;&#x4E5D;&#x6CD5;<br>
+        </a>
+        <ul>
+          <li><a href="#01-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6"> 01
+              &#x51FD;&#x6570;&#x5F0F;&#x7EC4;&#x4EF6;<br>
+            </a></li>
+          <li><a href="#02-%E5%AD%90%E7%BB%84%E4%BB%B6%E6%8B%86%E5%88%86"> 02
+              &#x5B50;&#x7EC4;&#x4EF6;&#x62C6;&#x5206;<br>
+            </a></li>
+          <li><a href="#03-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"> 03 &#x5C40;&#x90E8;&#x53D8;&#x91CF;<br>
+            </a></li>
+          <li><a href="#04-%E5%A4%9A%E7%94%A8v-show-%E5%87%8F%E5%B0%91v-if"> 04 &#x591A;&#x7528;v-show,
+              &#x51CF;&#x5C11;v-if<br>
+            </a></li>
+          <li><a href="#05-%E4%BD%BF%E7%94%A8keep-alive"> 05 &#x4F7F;&#x7528;keep-alive<br>
+            </a></li>
+          <li><a href="#06-%E6%B4%BB%E7%94%A8%E5%BB%B6%E8%BF%9F%E8%A3%85%E8%BD%BDdefer"> 06
+              &#x6D3B;&#x7528;&#x5EF6;&#x8FDF;&#x88C5;&#x8F7D;(Defer)<br>
+            </a></li>
+          <li><a href="#07-%E5%88%86%E6%89%B9%E5%A4%84%E7%90%86"> 07 &#x5206;&#x6279;&#x5904;&#x7406;<br>
+            </a></li>
+          <li><a href="#08-%E9%9D%9E%E5%93%8D%E5%BA%94%E6%A8%A1%E5%BC%8F"> 08
+              &#x975E;&#x54CD;&#x5E94;&#x6A21;&#x5F0F;<br>
+            </a></li>
+          <li><a href="#09-%E4%BB%85%E6%B8%B2%E6%9F%93%E5%8F%AF%E8%A7%86%E5%8C%96%E9%83%A8%E5%88%86"> 09
+              &#x4EC5;&#x6E32;&#x67D3;&#x53EF;&#x89C6;&#x5316;&#x90E8;&#x5206;<br>
+            </a></li>
+        </ul>
+      </li>
+      <li><a href="#404vue"> 404.vue<br>
+        </a></li>
+    </ul>
+    <h1 class="mume-header" id="packagejson">package.json</h1>
+
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token punctuation">{</span>
+  <span class="token string">&quot;name&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;app&quot;</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;version&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;0.1.0&quot;</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;private&quot;</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;scripts&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;serve&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;vue-cli-service serve&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;build&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;vue-cli-service build&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;lint&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;vue-cli-service lint&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;dependencies&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;axios&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^0.18.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;core-js&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^2.6.5&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;iview&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^3.4.1&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;json-bigint&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^0.3.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;md5&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^2.2.1&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;vue&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^2.6.10&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;vue-router&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^3.0.6&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;vuex&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^3.1.0&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;devDependencies&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;@vue/cli-plugin-babel&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^3.7.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;@vue/cli-plugin-eslint&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^3.7.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;@vue/cli-service&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^3.7.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;babel-eslint&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^10.0.1&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;eslint&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^5.16.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;eslint-plugin-vue&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^5.0.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;less&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^3.9.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;less-loader&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^5.0.0&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;vue-template-compiler&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;^2.5.21&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;eslintConfig&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;root&quot;</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;env&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;node&quot;</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;extends&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">&quot;plugin:vue/essential&quot;</span><span class="token punctuation">,</span>
+      <span class="token string">&quot;eslint:recommended&quot;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;rules&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;parserOptions&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;parser&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;babel-eslint&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;postcss&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;plugins&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;autoprefixer&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;browserslist&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&quot;&gt; 1%&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;last 2 versions&quot;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+</pre>
+    <h1 class="mume-header" id="router">router</h1>
+
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">&apos;vue&apos;</span>
+<span class="token keyword">import</span> Router <span class="token keyword">from</span> <span class="token string">&apos;vue-router&apos;</span>
+<span class="token keyword">import</span> routes <span class="token keyword">from</span> <span class="token string">&apos;./routers&apos;</span>
+<span class="token keyword">import</span> iView <span class="token keyword">from</span> <span class="token string">&apos;iview&apos;</span>
+
+Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Router<span class="token punctuation">)</span>
+<span class="token keyword">const</span> router <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Router</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  routes<span class="token punctuation">,</span>
+  mode<span class="token punctuation">:</span> <span class="token string">&apos;history&apos;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+router<span class="token punctuation">.</span><span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> form <span class="token punctuation">,</span>next</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  iView<span class="token punctuation">.</span>LoadingBar<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+router<span class="token punctuation">.</span><span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  iView<span class="token punctuation">.</span>LoadingBar<span class="token punctuation">.</span><span class="token function">finish</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  window<span class="token punctuation">.</span><span class="token function">scrollTo</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> router
+</pre>
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    path<span class="token punctuation">:</span> <span class="token string">&apos;/&apos;</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span> <span class="token string">&apos;index&apos;</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">component</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">&apos;@/view/Index.vue&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    path<span class="token punctuation">:</span> <span class="token string">&apos;/home&apos;</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span> <span class="token string">&apos;home&apos;</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">component</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">&apos;@/view/Home.vue&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    path<span class="token punctuation">:</span> <span class="token string">&apos;/login&apos;</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span> <span class="token string">&apos;Login&apos;</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">component</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">&apos;@/view/user/login.vue&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    path<span class="token punctuation">:</span> <span class="token string">&apos;/product&apos;</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span> <span class="token string">&apos;product&apos;</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">component</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`@/view/Main.vue`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        path<span class="token punctuation">:</span> <span class="token string">&apos;product_list&apos;</span><span class="token punctuation">,</span>
+        name<span class="token punctuation">:</span> <span class="token string">&apos;ProductList&apos;</span><span class="token punctuation">,</span>
+        <span class="token function-variable function">component</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`@/view/product/product_list.vue`</span></span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</pre>
+    <h1 class="mume-header" id="store">store</h1>
+
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">&apos;vue&apos;</span>
+<span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Vuex<span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">//</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">//</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">//</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  modules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">//</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</pre>
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"># user<span class="token punctuation">.</span>js
+<span class="token comment">/* &#x7528;&#x6237;&#x72B6;&#x6001;
+* &#x9700;&#x8981;&#x672C;&#x5730;&#x5B58;&#x4E00;&#x4EFD;
+*/</span>
+<span class="token keyword">import</span> task <span class="token keyword">from</span> <span class="token string">&apos;@/api/member&apos;</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  user<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> getters <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">user</span><span class="token punctuation">:</span> <span class="token parameter">state</span> <span class="token operator">=&gt;</span> state<span class="token punctuation">.</span>user
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> actions <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token keyword">async</span> <span class="token function">handleLogin</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> commit <span class="token punctuation">}</span><span class="token punctuation">,</span> params</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> task<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;setUser&apos;</span><span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token function">handleLogout</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> commit <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;setUser&apos;</span><span class="token punctuation">,</span> undefined<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> mutations <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">setUser</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter">state <span class="token punctuation">,</span> user</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span>state<span class="token punctuation">.</span>user <span class="token operator">=</span> user<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  state<span class="token punctuation">,</span>
+  getters<span class="token punctuation">,</span>
+  actions<span class="token punctuation">,</span>
+  mutations
+<span class="token punctuation">}</span>
+</pre>
+    <h1 class="mume-header" id="axios">axios</h1>
+
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"># axios<span class="token punctuation">.</span>js
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">&apos;axios&apos;</span>
+<span class="token keyword">import</span> qs <span class="token keyword">from</span> <span class="token string">&apos;qs&apos;</span>
+<span class="token keyword">import</span> JSONbig <span class="token keyword">from</span> <span class="token string">&apos;json-bigint&apos;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Modal<span class="token punctuation">,</span> Message <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;iview&apos;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> getUserFromLocalStorage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;@/utils/storage&apos;</span>
+
+<span class="token keyword">let</span> instance <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  baseURL<span class="token punctuation">:</span> <span class="token string">&apos;/back/&apos;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+instance<span class="token punctuation">.</span>interceptors<span class="token punctuation">.</span>request<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token parameter">config</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  config<span class="token punctuation">.</span>headers<span class="token punctuation">.</span>accessToken <span class="token operator">=</span> <span class="token function">getUserFromLocalStorage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">&apos;accessToken&apos;</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">&apos;&apos;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">==</span>undefined <span class="token operator">||</span> config<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span><span class="token string">&apos;json&apos;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    config<span class="token punctuation">.</span>headers<span class="token punctuation">[</span><span class="token string">&apos;Content-Type&apos;</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">&apos;application/x-www-form-urlencoded&apos;</span><span class="token punctuation">;</span>
+    config<span class="token punctuation">.</span>transformRequest<span class="token operator">=</span><span class="token punctuation">[</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> qs<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token punctuation">{</span> arrayFormat<span class="token punctuation">:</span> <span class="token string">&apos;repeat&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> config
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+instance<span class="token punctuation">.</span>interceptors<span class="token punctuation">.</span>response<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>code<span class="token operator">===</span><span class="token operator">-</span><span class="token number">401</span> <span class="token operator">&amp;&amp;</span> res<span class="token punctuation">.</span>config<span class="token punctuation">.</span>url<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">&apos;user/login&apos;</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    Modal<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      title<span class="token punctuation">:</span> <span class="token string">&apos;&#x7CFB;&#x7EDF;&#x63D0;&#x793A;&apos;</span><span class="token punctuation">,</span>
+      content<span class="token punctuation">:</span> <span class="token function">getUserFromLocalStorage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">&apos;accessToken&apos;</span><span class="token punctuation">]</span> <span class="token operator">?</span> <span class="token string">&apos;&#x60A8;&#x7684;&#x767B;&#x5F55;&#x4FE1;&#x606F;&#x5DF2;&#x8FC7;&#x671F;&#xFF0C;&#x8BF7;&#x91CD;&#x65B0;&#x767B;&#x5F55;&apos;</span> <span class="token punctuation">:</span> <span class="token string">&apos;&#x60A8;&#x8FD8;&#x672A;&#x767B;&#x5F55;&#x8D26;&#x53F7;&#xFF0C;&#x8BF7;&#x5148;&#x767B;&#x5F55;&apos;</span><span class="token punctuation">,</span>
+      <span class="token function">onOk</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        window<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>$router<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">&apos;/login?referer=&apos;</span><span class="token operator">+</span><span class="token function">encodeURIComponent</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>$route<span class="token punctuation">.</span>fullPath<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>code <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">)</span> Message<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>msg<span class="token punctuation">)</span>
+  <span class="token keyword">else</span> JSONbig<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>request<span class="token punctuation">.</span>response<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token parameter">error</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  Message<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&apos;&#x670D;&#x52A1;&#x5668;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#xFF0C;&#x8BF7;&#x7A0D;&#x540E;&#x518D;&#x8BD5;&apos;</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> instance
+</pre>
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"># storage<span class="token punctuation">.</span>js
+<span class="token keyword">import</span> JSONbig <span class="token keyword">from</span> <span class="token string">&apos;json-bigint&apos;</span>
+
+<span class="token comment">// &#x7528;&#x6237;&#x672C;&#x5730;&#x6570;&#x636E;&#x5B58;&#x50A8;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">setUserInLocalStorage</span> <span class="token operator">=</span> <span class="token parameter">object</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span>localStorage<span class="token punctuation">.</span>user <span class="token operator">=</span> JSONbig<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">getUserFromLocalStorage</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> JSONbig<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>localStorage<span class="token punctuation">.</span>user<span class="token punctuation">)</span> <span class="token operator">||</span> undefined
+</pre>
+    <h1 class="mume-header" id="%E7%BB%84%E4%BB%B6">&#x7EC4;&#x4EF6;</h1>
+
+    <p><code>ZLayout.vue</code>&#x5E03;&#x5C40;&#x7EC4;&#x4EF6;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;section&gt;
+    &lt;Row :gutter=&quot;15&quot;&gt;
+      &lt;slot name=&quot;query&quot;/&gt;
+      &lt;i-col span=&quot;4&quot;&gt;
+        &lt;i-button type=&quot;primary&quot; @click=&quot;onSearch&quot;&gt;&#x67E5;&#x8BE2;&lt;/i-button&gt;
+        &lt;i-button @click=&quot;onClear&quot; style=&quot;margin-left:10px;&quot;&gt;&#x91CD;&#x7F6E;&lt;/i-button&gt;
+      &lt;/i-col&gt;
+    &lt;/Row&gt;
+    &lt;slot name=&quot;data&quot;/&gt;
+    &lt;Page show-total :total=&quot;pageTotel&quot; @on-change=&quot;pageChange&quot; @on-page-size-change=&quot;pageSizeChange&quot; show-sizer/&gt;
+  &lt;/section&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    onSearch: Function,
+    onClear: Function,
+    pageChange: Function,
+    pageSizeChange: Function,
+    pageTotel: Number,
+  }
+}
+&lt;/script&gt;
+</code></pre>
+    <p><code>Base.vue</code>&#x57FA;&#x7840;&#x7EC4;&#x4EF6;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;script&gt;
+export default {
+  data: () =&gt; ({
+    form: {},
+    total: 0
+  }),
+  methods: {
+    search () {
+      alert(JSON.stringify(this.form))
+    },
+    clear () {
+      this.form = {}
+    },
+    pageChange (v) {
+      alert(`&#x9875;&#x7801;&#xFF1A;${v}`)
+    },
+    pageSizeChange (v) {
+      alert(`&#x6BCF;&#x9875;&#xFF1A;${v}`)
+    },
+  }
+}
+&lt;/script&gt;
+
+</code></pre>
+    <p><code>custom.vue</code></p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;z-layout :onSearch=&quot;search&quot; :onClear=&quot;clear&quot; :pageTotel=&quot;total&quot; :pageChange=&quot;pageChange&quot; :pageSizeChange=&quot;pageSizeChange&quot;&gt;
+    &lt;template #query&gt;
+      &lt;z-col label=&quot;&#x6027;&#x522B;&quot;&gt;&lt;i-input v-model=&quot;form.sex&quot; /&gt;&lt;/z-col&gt;
+      &lt;z-col label=&quot;&#x59D3;&quot;&gt;&lt;i-input v-model=&quot;form.first&quot; /&gt;&lt;/z-col&gt;
+      &lt;z-col label=&quot;&#x540D;&quot;&gt;&lt;i-input v-model=&quot;form.second&quot; /&gt;&lt;/z-col&gt;
+    &lt;/template&gt;
+    &lt;template #data&gt;
+      &lt;i-button icon=&quot;md-add&quot; @click=&quot;total=total+1&quot;&gt;&lt;/i-button&gt;
+      &lt;i-button icon=&quot;md-remove&quot; @click=&quot;total=total-1&quot; type=&quot;error&quot;&gt;&lt;/i-button&gt;
+      {{total}}
+    &lt;/template&gt;
+  &lt;/z-layout&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import Base from &quot;_c/Base&quot;
+import ZLayout from &quot;_c/ZLayout&quot;
+export default {
+  extends: Base,
+  components: {
+    ZLayout
+  }
+}
+&lt;/script&gt;
+</code></pre>
+    <h2 class="mume-header" id="%E7%BA%AF%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6">&#x7EAF;&#x51FD;&#x6570;&#x7EC4;&#x4EF6;
+    </h2>
+
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template functional&gt;
+  &lt;i-col :xxl=&quot;props.xxl&quot; :xl=&quot;props.xl&quot; :lg=&quot;6&quot; :md=&quot;7&quot; :style=&quot;{paddingLeft: `${props.gutter/2}px`,paddingRight: `${props.gutter/2}px`}&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;{{props.label}}&lt;/div&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/i-col&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    label: {
+      type: String
+    },
+    gutter: {
+      type: Number,
+      default: () =&gt; 15
+    },
+    xxl: {
+      type: Number,
+      default: () =&gt; 3
+    },
+    xl: {
+      type: Number,
+      default: () =&gt; 4
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+    <p><code>_globals.js</code></p>
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">&apos;vue&apos;</span>
+<span class="token keyword">import</span> upperFirst <span class="token keyword">from</span> <span class="token string">&apos;lodash/upperFirst&apos;</span>
+<span class="token keyword">import</span> camelCase <span class="token keyword">from</span> <span class="token string">&apos;lodash/camelCase&apos;</span>
+
+<span class="token keyword">const</span> requireComponent <span class="token operator">=</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span>
+  <span class="token string">&apos;.&apos;</span><span class="token punctuation">,</span>
+  <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token regex">/Z[A-Z]\w+\.(vue|js)$/</span>
+<span class="token punctuation">)</span>
+
+requireComponent<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">fileName</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> componentConfig <span class="token operator">=</span> <span class="token function">requireComponent</span><span class="token punctuation">(</span>fileName<span class="token punctuation">)</span>
+  <span class="token keyword">const</span> componentName <span class="token operator">=</span> <span class="token function">upperFirst</span><span class="token punctuation">(</span>
+    <span class="token function">camelCase</span><span class="token punctuation">(</span>
+      fileName
+        <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/^\.\/_/</span><span class="token punctuation">,</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/\.\w+$/</span><span class="token punctuation">,</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+  Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span>componentName<span class="token punctuation">,</span> componentConfig<span class="token punctuation">.</span><span class="token keyword">default</span> <span class="token operator">||</span> componentConfig<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// &#x4F7F;&#x7528;&#x5728; main.js &#x5F15;&#x5165;</span>
+<span class="token comment">// import &apos;@/components/_globals&apos;</span>
+<span class="token comment">// https://cn.vuejs.org/v2/guide/components-registration.html</span>
+</pre>
+    <h1 class="mume-header" id="%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2">
+      &#x524D;&#x7AEF;&#x4EE3;&#x7801;&#x90E8;&#x7F72;</h1>
+
+    <p>
+      &#x4F7F;&#x7528;history&#x6A21;&#x5F0F;&#x7684;&#xFF0C;&#x9700;&#x8981;&#x5728;nginx&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;
+    </p>
+    <pre data-role="codeBlock" data-info="conf" class="language-conf"><code>location / {
+  root &#x6587;&#x4EF6;&#x76EE;&#x5F55;
+  try_files uri uri/ /index.html;//&#x52A0;&#x4E0A;&#x8FD9;&#x53E5;
+}
+</code></pre>
+    <p>&#x9632;&#x6B62;&#x5237;&#x65B0;&#x7684;&#x65F6;&#x5019;404</p>
+    <h1 class="mume-header" id="%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%9D%E6%B3%95">
+      &#x6027;&#x80FD;&#x4F18;&#x5316;&#x4E5D;&#x6CD5;</h1>
+
+    <h2 class="mume-header" id="01-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6">01
+      &#x51FD;&#x6570;&#x5F0F;&#x7EC4;&#x4EF6;</h2>
+
+    <h2 class="mume-header" id="02-%E5%AD%90%E7%BB%84%E4%BB%B6%E6%8B%86%E5%88%86">02
+      &#x5B50;&#x7EC4;&#x4EF6;&#x62C6;&#x5206;</h2>
+
+    <p>&#x4F18;&#x5316;&#x4E4B;&#x524D;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div :style=&quot;{ opacity: number/300 }&quot;&gt;
+    &lt;div&gt;{{ heavy() }}&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: [&apos;number&apos;],
+  methods: {
+    heavy() {
+      // task
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+    <p>&#x4F18;&#x5316;&#x4E4B;&#x540E;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div :style=&quot;{ opacity: number/300 }&quot;&gt;
+    &lt;ChildComp/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: [&apos;number&apos;],
+  components: {
+    ChildComp: {
+      methods: {
+        heavy() { /* task */ }
+      },
+      render (h) {
+        return h(&apos;div&apos;, this.heavy())
+      }
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+    <h2 class="mume-header" id="03-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F">03 &#x5C40;&#x90E8;&#x53D8;&#x91CF;</h2>
+
+    <p>&#x4F18;&#x5316;&#x4E4B;&#x524D;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div :style=&quot;{ opacity: start / 300 }&quot;&gt;{{ result }}&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { heavy } from &apos;@/utils&apos;
+export default {
+  props: [&apos;start&apos;],
+  computed: {
+    base () { return 42 },
+    result () {
+      let result = this.start
+      for (let i = 0;i &lt; 1000; i++) {
+        result += heavy(this.base)
+      }
+      return result
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+    <p>&#x4F18;&#x5316;&#x4E4B;&#x540E;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div :style=&quot;{ opacity: start / 300 }&quot;&gt;{{ result }}&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { heavy } from &apos;@/utils&apos;
+export default {
+  props: [&apos;start&apos;],
+  computed: {
+    base () { return 42 },
+    result () {
+      const base = this.base
+      let result = this.start
+      for (let i = 0;i &lt; 1000; i++) {
+        result += heavy(base)
+      }
+      return result
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+    <h2 class="mume-header" id="04-%E5%A4%9A%E7%94%A8v-show-%E5%87%8F%E5%B0%91v-if">04 &#x591A;&#x7528;v-show,
+      &#x51CF;&#x5C11;v-if</h2>
+
+    <p>&#x4F18;&#x5316;&#x524D;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template functional&gt;
+  &lt;div class=&quot;cell&quot;&gt;
+    &lt;div v-if=&quot;props.value&quot; class=&quot;on&quot;&gt;
+      &lt;Heavy :n=&quot;100000&quot;/&gt;
+    &lt;/div&gt;
+    &lt;section v-else class=&quot;off&quot;&gt;
+      &lt;Heavy :n=&quot;100000&quot;/&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+    <p>&#x4F18;&#x5316;&#x540E;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template functional&gt;
+  &lt;div class=&quot;cell&quot;&gt;
+    &lt;div v-show=&quot;props.value&quot; class=&quot;on&quot;&gt;
+      &lt;Heavy :n=&quot;100000&quot;/&gt;
+    &lt;/div&gt;
+    &lt;section v-show=&quot;!props.value&quot; class=&quot;off&quot;&gt;
+      &lt;Heavy :n=&quot;100000&quot;/&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+    <h2 class="mume-header" id="05-%E4%BD%BF%E7%94%A8keep-alive">05 &#x4F7F;&#x7528;keep-alive</h2>
+
+    <p>&#x4F18;&#x5316;&#x524D;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;router-view/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+    <p>&#x4F18;&#x5316;&#x540E;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;keep-alive&gt;
+      &lt;router-view/&gt;
+    &lt;/keep-alive&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+    <h2 class="mume-header" id="06-%E6%B4%BB%E7%94%A8%E5%BB%B6%E8%BF%9F%E8%A3%85%E8%BD%BDdefer">06
+      &#x6D3B;&#x7528;&#x5EF6;&#x8FDF;&#x88C5;&#x8F7D;(Defer)</h2>
+
+    <p>&#x4F18;&#x5316;&#x524D;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;I&apos;m an heavy page&lt;/h2&gt;
+    &lt;Heavy v-for=&quot;n in 10&quot; :key=&quot;n&quot;/&gt;
+    &lt;Heavy class=&quot;super-heavy&quot; :n=&quot;99999999/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+    <p>&#x4F18;&#x5316;&#x540E;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;I&apos;m an heavy page&lt;/h2&gt;
+
+    &lt;template v-if=&quot;defer(2)&quot;&gt;
+      &lt;Heavy v-for=&quot;n in 10&quot; :key=&quot;n&quot;/&gt;
+    &lt;/template&gt;
+
+    &lt;Heavy v-if=&quot;defer(3)&quot; class=&quot;super-heavy&quot; :n=&quot;99999999/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import Defer from &apos;@/mixins/Defer&apos;
+
+export default {
+  mixins: [
+    Defer()
+  ]
+}
+&lt;/script&gt;
+</code></pre>
+    <h2 class="mume-header" id="07-%E5%88%86%E6%89%B9%E5%A4%84%E7%90%86">07 &#x5206;&#x6279;&#x5904;&#x7406;</h2>
+
+    <p>&#x4F18;&#x5316;&#x524D;</p>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token function">fetchItems</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> commit <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> items <span class="token punctuation">}</span></span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;clearItems&apos;</span><span class="token punctuation">)</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;addItems&apos;</span><span class="token punctuation">,</span> items<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</pre>
+    <p>&#x4F18;&#x5316;&#x540E;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>fetchItems({ commit }, { items, splitCount }){
+    commit(&apos;clearItems&apos;)
+	const queue = new JobQueue()
+	splitArray(items,splitCount).forEach(
+	  chunk =&gt; queue.addJob(done =&gt; {
+		requestAnimationFrame(() =&gt; {
+		  commit(&apos;addItems&apos;, chunk)
+		  done()
+		})
+	  })
+	)
+    await queue.start()
+}
+</code></pre>
+    <h2 class="mume-header" id="08-%E9%9D%9E%E5%93%8D%E5%BA%94%E6%A8%A1%E5%BC%8F">08
+      &#x975E;&#x54CD;&#x5E94;&#x6A21;&#x5F0F;</h2>
+
+    <p>&#x4F18;&#x5316;&#x524D;</p>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token keyword">const</span> data <span class="token operator">=</span> items<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>
+    <span class="token parameter">item</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+        id<span class="token punctuation">:</span> uid<span class="token operator">++</span><span class="token punctuation">,</span>
+        data<span class="token punctuation">:</span> item<span class="token punctuation">,</span>
+        vote<span class="token punctuation">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+</pre>
+    <p>&#x4F18;&#x5316;&#x540E;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>const data = items.map(
+	item =&gt; optimizeItem(item)
+)
+function optimizeItem(item) {
+	const itemData = {
+		id: uid++,
+		vote: 0
+	}
+	Object.defineProperty(itemData, &apos;data&apos;, {
+		configurable:false,
+		value:item
+	})
+	return itemData
+}
+</code></pre>
+    <h2 class="mume-header" id="09-%E4%BB%85%E6%B8%B2%E6%9F%93%E5%8F%AF%E8%A7%86%E5%8C%96%E9%83%A8%E5%88%86">09
+      &#x4EC5;&#x6E32;&#x67D3;&#x53EF;&#x89C6;&#x5316;&#x90E8;&#x5206;</h2>
+
+    <p>&#x4F18;&#x5316;&#x524D;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;div&gt;
+    &lt;FetchItemViewFunctional
+      v-for=&quot;item of items&quot;
+      :key=&quot;item.id&quot;
+      :item=&quot;item&quot;
+      @vote=&quot;voteItem(item)&quot;
+    /&gt;
+&lt;/div&gt;
+</code></pre>
+    <p>&#x4F18;&#x5316;&#x540E;</p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;recycle-scroller
+    class=&quot;items&quot;
+    :items=&quot;items&quot;
+    :item-size=&quot;24&quot;
+  &gt;
+    &lt;template v-slot=&quot;{ item }&quot;&gt;
+      &lt;FetchItemView
+        :item=&quot;item&quot;
+        @vote=&quot;voteItem(item)&quot;
+      /&gt;
+    &lt;/template&gt;
+&lt;/recycle-scroller&gt;
+</code></pre>
+    <h1 class="mume-header" id="404vue">404.vue</h1>
+
+    <p><code>routes.js</code></p>
+    <pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token punctuation">{</span>
+   path<span class="token punctuation">:</span> <span class="token string">&apos;*&apos;</span><span class="token punctuation">,</span>
+   name<span class="token punctuation">:</span> <span class="token string">&apos;error&apos;</span><span class="token punctuation">,</span>
+   <span class="token function-variable function">component</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`@/view/404.vue`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</pre>
+    <p><code>404.vue</code></p>
+    <pre data-role="codeBlock" data-info="vue" class="language-vue"><code>&lt;template&gt;
+  &lt;div id=&quot;error&quot;&gt;
+    &lt;div class=&quot;error-img&quot;&gt;
+      404
+    &lt;/div&gt;
+    &lt;svg width=&quot;260&quot; height=&quot;60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+      &lt;ellipse ry=&quot;15&quot; rx=&quot;110&quot; id=&quot;svg_1&quot; cy=&quot;30&quot; cx=&quot;130&quot; stroke-width=&quot;1.5&quot; stroke=&quot;#5476cc&quot; fill=&quot;#5476cc&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;div class=&quot;error-title&quot;&gt;&#x62B1;&#x6B49;&#xFF0C;&#x60A8;&#x8BBF;&#x95EE;&#x7684;&#x9875;&#x9762;&#x5F04;&#x4E22;&#x4E86;&#xFF01;&lt;a href=&quot;#&quot; @click=&quot;goBack&quot;&gt;&#x8FD4;&#x56DE;&lt;/a&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  methods: {
+    goBack(){
+      window.history.length &gt; 1
+        ? this.$router.go(-1)
+        : this.$router.push(&apos;/&apos;)
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;style lang=&quot;less&quot; scoped&gt;
+#error {
+  position: fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  background-color: #f5f5f5;
+  text-align: center;
+  .error-img {
+    position: relative;
+    padding-top: 18%;
+    font-size: 8em;
+    letter-spacing: 0.2em;
+    font-weight: 400;
+    color: #5476cc;
+    animation: 3s linear 0s infinite alternate imgrun;
+    &amp;::after {
+      width: 100px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      background-color: #000;
+    }
+  }
+  .error-title {
+    font-size: 1.5em;
+    font-weight: 400;
+  }
+}
+
+@keyframes imgrun {
+  from { top: -50px; } to { top: 50px; }
+}
+&lt;/style&gt;
+</code></pre>
+  </div>
+</body>
+</html>
