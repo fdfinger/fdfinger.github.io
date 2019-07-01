@@ -21,13 +21,27 @@
           renderData(res);
         })
     }
+    const ColorList = [
+      'is-primary',
+      'is-info',
+      'is-success',
+      'is-warning',
+      'is-danger',
+      'is-light',
+      'is-dark',
+      'is-light',
+      'is-primary'
+    ]
+    function randomColor() {
+      return ColorList[Math.floor(Math.random() * 10)]
+    }
     function getColumns (params) {
       let _new = document.createElement('div');
       _new.className = 'columns';
       _new.innerHTML = params.map(function(i){
         return `
           <div class="column">
-            <section class="hero is-primary">
+            <section class="hero ${randomColor()}">
               <div class="hero-body">
                 <div class="level">
                   <div class="level-left">
