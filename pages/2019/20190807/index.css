@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  padding: 300px 0 0 0;
+  transition: padding 1s;
+}
+
+.tip {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: #bbb;
+  font-size: .8em;
+  margin-top: 8px;
+}
+
+.search-box-top {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  padding: 30px 0 0 0;
+  transition: padding 1s;
+}
+
+.input {
+  outline: none;
+  border: 1px solid #e8e8ee;
+  height: 50px;
+  min-width: 500px;
+  line-height: 50px;
+  font-size: 24px;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 10px 10px 30px #e8e8ee;
+}
+.input:focus {
+  border: 3px solid #46b0da;
+}
+
+.input-button {
+  outline: none;
+  height: 50px;
+  min-width: 50px;
+  background-color: #ffffff;
+  border: 1px solid #e8e8ee;
+  color: #bbb;
+  font-size: 35px;
+  line-height: 50px;
+}
+.input-button:hover {
+  border: 3px solid #46b0da;
+  background-color: #46b0da;
+  color: #ffffff;
+}
+
+.result-list {
+  margin: 10px 120px;
+}
+
+#result {
+  list-style-type: none;
+}
+
+.result-item {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 2px solid #e8e8ee;
+  border-radius: 5px;
+}
+
+#result .question {
+  color: #46b0da;
+}
+#result .question::before {
+  content: "问题： "
+}
+
+#result .answer {
+  color: #ccc;
+}
+
+#result .answer::before {
+  content: "回答：";
+}
