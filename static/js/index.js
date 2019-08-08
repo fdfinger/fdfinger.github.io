@@ -4,7 +4,7 @@ const scriptList = [
 ]
 // 其他远程地址的链接js
 const otherScriptList = [
-  'https://use.fontawesome.com/releases/v5.3.1/js/all.js'
+  'https://cdn.bootcss.com/font-awesome/5.10.0-12/js/all.min.js'
 ]
 
 // 生成script函数
