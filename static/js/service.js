@@ -7,7 +7,6 @@ const qs = {
     return _form
   },
   url: function (url, params) {
-    console.log(url, params);
     if (!params) return url
     const _encode = Object.keys(params).map(function (item) {
       return `${item}=${params[item]}`
