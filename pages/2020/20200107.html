@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      <v-content>
+        <v-container :class="submit ? '':'cyan lighten-5'" style="height: 100vh;">
+          <div v-show="submit">
+            <v-col cols="12" sm="6" md="3">
+              <v-text-field
+                label="交易昵称"
+                v-model="form.username"
+                placeholder="请输入昵称"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <v-text-field
+                label="一级五行石数量"
+                v-model="form.saleNumber"
+                placeholder="颗"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <v-text-field
+                label="每组五行石单价"
+                v-model="form.amount"
+                placeholder="金/组"
+              ></v-text-field>
+            </v-col>
+            <div class="text-center">
+              <v-btn block color="primary" dark @click="handleSubmit()" :disabled="!form.amount || !form.saleNumber || !form.username">提 交</v-btn>
+            </div>
+          </div>
+
+          <div v-show="!submit" class="bg">
+            <div class="text-right">
+              <v-btn class="mx-2" fab dark small color="primary" @click="submit = true">
+                <v-icon dark>mdi-cancel</v-icon>
+              </v-btn>
+            </div>
+            <div>
+              <h3 class="ma-7">尊敬的{{form.username}}：</h3>
+              <h3 class="ma-7">本次交易</h3>
+              <h1 class="ma-7">需要支付 <span class="red--text">{{(form.saleNumber/200/8) * (form.amount * 8)}}</span> 金</h1>
+              <h2 class="ma-7">您将收到 <span class="blue--text">{{form.saleNumber/200}}</span> 组 一级五行石</h2>
+              <h3 class="ma-7">您将收到 <span class="blue--text">{{form.saleNumber/200/8}}</span> 封付费邮件，每封 <span class="red--text">{{form.amount * 8}}</span> 金</h3>
+            </div>
+          </div>
+        </v-container>
+      </v-content>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data() {
+        return {
+          submit: true,
+          form : {
+            username: '皇甫飞',
+            amount: 160,
+            saleNumber: 1600
+          }
+        }
+      },
+      methods: {
+        handleSubmit() {
+          this.submit = false;
+        }
+      }
+    })
+  </script>
+</body>
+</html>
