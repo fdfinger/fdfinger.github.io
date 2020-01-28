@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <title>新春祝福语</title>
+  <style>
+  #copyContent {
+    margin-bottom: 20px;
+  }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      <v-content>
+        <v-container :class="submit ? '':'cyan lighten-5'" style="height: 100vh;">
+          <div>
+            <v-col cols="12" sm="6" md="3">
+              <v-text-field
+                label="收信人"
+                v-model="form.username"
+                placeholder="请输入昵称"
+              ></v-text-field>
+            </v-col>
+          </div>
+          <div id="copyContent">
+            {{form.username}}，新年好，祝你在新的一年里，有 "鼠"不尽的快乐！"鼠"不尽的收获！"鼠"不尽的钞票！"鼠"不尽的笑容！"鼠"不尽的幸福！"鼠"不尽的喜气！"鼠"不尽的财富！"鼠"不尽的甜蜜！"鼠"不尽的激情！"鼠"不尽的活力！"鼠"不尽的健康！
+          </div>
+          <v-btn color="primary" dark @click="copy()">复制</v-btn>
+        </v-container>
+      </v-content>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data() {
+        return {
+          submit: true,
+          form : {
+            username: '皇甫飞'
+          }
+        }
+      },
+      methods: {
+        copy () {
+          const Url2 = document.getElementById("copyContent");
+          window.clipboardData.setData("Text",Url2.innerText);
+        }
+      }
+    })
+  </script>
+</body>
+</html>

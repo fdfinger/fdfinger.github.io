@@ -5,6 +5,11 @@
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style>
+  #sum {
+    margin-top: 1rem;
+  }
+  </style>
 </head>
 <body>
   <div id="app">
@@ -36,6 +41,9 @@
             <div class="text-center">
               <v-btn block color="primary" dark @click="handleSubmit()" :disabled="!form.amount || !form.saleNumber || !form.username">提 交</v-btn>
             </div>
+            <footer>
+              <p id="sum">共计赚 {{(form.saleNumber/500/8) * (form.amount * 8) - (form.saleNumber * 0.75)}} 金</p>
+            </footer>
           </div>
 
           <div v-show="!submit" class="bg">
@@ -47,9 +55,9 @@
             <div>
               <h3 class="ma-7">尊敬的{{form.username}}：</h3>
               <h3 class="ma-7">本次交易</h3>
-              <h1 class="ma-7">需要支付 <span class="red--text">{{(form.saleNumber/200/8) * (form.amount * 8)}}</span> 金</h1>
-              <h2 class="ma-7">您将收到 <span class="blue--text">{{form.saleNumber/200}}</span> 组 一级五行石</h2>
-              <h3 class="ma-7">您将收到 <span class="blue--text">{{form.saleNumber/200/8}}</span> 封付费邮件，每封 <span class="red--text">{{form.amount * 8}}</span> 金</h3>
+              <h1 class="ma-7">需要支付 <span class="red--text">{{(form.saleNumber/500/8) * (form.amount * 8)}}</span> 金</h1>
+              <h2 class="ma-7">您将收到 <span class="blue--text">{{form.saleNumber/500}}</span> 组 一级五行石</h2>
+              <h3 class="ma-7">您将收到 <span class="blue--text">{{form.saleNumber/500/8}}</span> 封付费邮件，每封 <span class="red--text">{{form.amount * 8}}</span> 金</h3>
             </div>
           </div>
         </v-container>
@@ -68,8 +76,8 @@
           submit: true,
           form : {
             username: '皇甫飞',
-            amount: 160,
-            saleNumber: 1600
+            amount: 375,
+            saleNumber: 2000
           }
         }
       },
