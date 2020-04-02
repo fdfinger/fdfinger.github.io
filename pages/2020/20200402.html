@@ -64,7 +64,7 @@
 <body>
   <div id="app">
     <el-container style="height:100vh;">
-      <el-aside id="asider" :style="{ width: isCollapse ? '60x' : '226px' }">
+      <el-aside id="asider" :style="{ width: isCollapse ? '60x' : '226px', zIndex: 3000 }" v-show="isShowAsider">
         <div id="asider-header"></div>
         <el-menu :default-openeds="['1', '3']" background-color="#0d1f35" active-text-color="#ffd04b" text-color="#fff"
           :collapse="isCollapse" :style="{ width: isCollapse ? '60x' : '226px' }">
@@ -118,8 +118,9 @@
 
       <el-container>
         <el-header>
-          <div style="float:left;z-index: 3000;">
-            <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click.stop="isCollapse=!isCollapse"></i>
+          <div style="float:left;">
+            <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click.stop="isCollapse=!isCollapse" v-show="mode=='vertical'"></i>
+            <i :class="isShowAsider ? 'el-icon-caret-top' : 'el-icon-menu'" @click.stop="isShowAsider=!isShowAsider" v-show="mode=='horizontal'"></i>
           </div>
           <div style="float:right;">
             <img src="http://epm2.icbcsdc.cn/pmcweb/adminpage/static/img/head.5107d81.png" alt="ac" title="图标"
@@ -207,6 +208,39 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <script>
+    const device = {
+      userAgentInfo: navigator.userAgent,
+      isPc: function () {
+        const Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+        let flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+          if (this.userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+          }
+        }
+        return flag;
+      },
+      isPhone: function () {
+        if (this.userAgentInfo.indexOf('Android') > -1 || this.userAgentInfo.indexOf('Linux') > -1) {
+          return true
+        } else if (this.userAgentInfo.indexOf('iPhone') > -1) {
+          return true
+        } else if (this.userAgentInfo.indexOf('Windows Phone') > -1) {
+          return true
+        } else {
+          return false
+        }
+      },
+      isWeiXin: function () {
+        const ua = this.userAgentInfo.toLowerCase();
+        if (ua.indexOf('micromessenger') != -1) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
     const item = {
       name: '江飞',
       age: 27,
@@ -223,13 +257,22 @@
             username: '皇甫飞'
           },
           list,
-          isCollapse: false
+          isCollapse: false,
+          mode: 'vertical',
+          isShowAsider: true
         }
       },
       watch: {
         isCollapse(newVal) {
           const asider = document.getElementById('asider')
           asider.style.width = newVal ? '60px' : '226px'
+        },
+        mode (newVal) {
+          const asider = document.getElementById('asider')
+          asider.style.position = 'fixed';
+          asider.style.left = 0;
+          asider.style.top = '60px';
+          this.isCollapse = true;
         }
       },
       methods: {
@@ -237,6 +280,16 @@
           const Url2 = document.getElementById("copyContent");
           window.clipboardData.setData("Text", Url2.innerText);
         }
+      },
+      mounted () {
+        const isPhone = device.isPhone()
+        const isWeiXin = device.isWeiXin()
+        if (isPhone || isWeiXin) {
+          this.mode = 'horizontal'
+        } else {
+          this.mode = 'vertical'
+        }
+        console.log(this.mode);
       }
     })
   </script>
