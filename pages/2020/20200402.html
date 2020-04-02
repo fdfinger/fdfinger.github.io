@@ -64,11 +64,12 @@
 <body>
   <div id="app">
     <el-container style="height:100vh;">
-      <el-aside :style="{ width: isCollapse ? '60x' : '226px' }">
+      <el-aside id="asider" :style="{ width: isCollapse ? '60x' : '226px' }">
         <div id="asider-header"></div>
-        <el-menu :default-openeds="['1', '3']" background-color="#0d1f35" active-text-color="#ffd04b" text-color="#fff" :collapse="isCollapse" style="width: 226px;">
+        <el-menu :default-openeds="['1', '3']" background-color="#0d1f35" active-text-color="#ffd04b" text-color="#fff"
+          :collapse="isCollapse" :style="{ width: isCollapse ? '60x' : '226px' }">
           <el-submenu index="1">
-            <template slot="title"><i class="el-icon-message"></i>导航一</template>
+            <template slot="title"><i class="el-icon-message"></i><span slot="title">导航一</span></template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
               <el-menu-item index="1-1">选项1</el-menu-item>
@@ -83,7 +84,7 @@
             </el-submenu>
           </el-submenu>
           <el-submenu index="2">
-            <template slot="title"><i class="el-icon-menu"></i>导航二</template>
+            <template slot="title"><i class="el-icon-menu"></i><span slot="title">导航二</span></template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
               <el-menu-item index="2-1">选项1</el-menu-item>
@@ -98,7 +99,7 @@
             </el-submenu>
           </el-submenu>
           <el-submenu index="3">
-            <template slot="title"><i class="el-icon-setting"></i>导航三</template>
+            <template slot="title"><i class="el-icon-setting"></i><span slot="title">导航三</span></template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
               <el-menu-item index="3-1">选项1</el-menu-item>
@@ -123,7 +124,8 @@
           <div style="float:right;">
             <img src="http://epm2.icbcsdc.cn/pmcweb/adminpage/static/img/head.5107d81.png" alt="ac" title="图标"
               width="40px" style="margin-top:10px;" />
-            <span style="vertical-align: top;">&nbsp;&nbsp;您好，江飞! &nbsp;&nbsp; <i class="el-icon-switch-button"></i> <small>退出</small></span>
+            <span style="vertical-align: top;">&nbsp;&nbsp;您好，江飞! &nbsp;&nbsp; <i class="el-icon-switch-button"></i>
+              <small>退出</small></span>
           </div>
         </el-header>
         <el-main>
@@ -222,6 +224,12 @@
           },
           list,
           isCollapse: false
+        }
+      },
+      watch: {
+        isCollapse(newVal) {
+          const asider = document.getElementById('asider')
+          asider.style.width = newVal ? '60px' : '226px'
         }
       },
       methods: {
