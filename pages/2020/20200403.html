@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="shortcut icon" href="/static/image/logo.svg" type="image/x-icon">
+  <title>兼容性自定义打印</title>
+  <style>
+    #app,
+    html {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .w-100 {
+      width: 100px;
+    }
+
+    .ml-20 {
+      margin-left: 20px;
+    }
+
+    table#table-print,
+    #table-edit {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    #table-edit th, td {
+      padding: 1px 10px;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
+    .isborder {
+      border: 1px solid #eeeeee;
+    }
+
+    .test {
+      background-color: transparent;
+    }
+
+    .mt-20 {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <section>
+      <el-card>
+        <el-page-header @back="goback()" content="打印表格" ></el-page-header>
+      </el-card>
+      <el-card header="表格设置" class="mt-20">
+        <section>
+          <el-form inline size="mini" action>
+            <el-form-item label="边框">
+              <el-switch v-model="border"></el-switch>
+            </el-form-item>
+            <el-form-item label="字体">
+              <el-input size="mini" type="number" :value="tableStyle.fontSize | pxF"
+                @input="tableStyle.fontSize = `${arguments[0]}px`" :min="0" class="w-100"></el-input>
+            </el-form-item>
+            <el-form-item label="内边距">
+              <el-input size="mini" type="number" :value="tableStyle.padding | pxF"
+                @input="tableStyle.padding = `${arguments[0]}px`" :min="0" class="w-100"></el-input>
+            </el-form-item>
+            <el-form-item label="表头字体颜色">
+              <el-color-picker v-model="tableHeaderStyle.color"></el-color-picker>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" size="mini" @click="jsPreview('table-print')" v-if="isIE" class="ml-20">IE打印
+              </el-button>
+              <el-button v-else type="primary" size="mini" @click="jsPreview('table-print')" class="ml-20">Chrome打印</el-button>
+            </el-form-item>
+            <el-form-item class="float-right">
+              <el-link @click.stop="showEdit = !showEdit">
+                {{ showEdit ? "收起" : "展开" }}详细设置
+                <i v-show="showEdit" class="el-icon-caret-bottom"></i>
+                <i v-show="!showEdit" class="el-icon-caret-top"></i>
+              </el-link>
+            </el-form-item>
+          </el-form>
+        </section>
+
+        <section v-show="showEdit">
+          <table id="table-edit">
+            <tr>
+              <th class="isborder">项目</th>
+              <th class="isborder">对齐</th>
+              <th class="isborder">宽度(%)</th>
+              <th class="isborder">是否显示</th>
+            </tr>
+            <tr v-for="(item, index) in tableColmnu" :key="index">
+              <td class="isborder">{{ item.label }}</td>
+              <td class="isborder">
+                <el-radio-group size="mini" v-model="item.align">
+                  <el-radio-button label="left">左</el-radio-button>
+                  <el-radio-button label="center">中</el-radio-button>
+                  <el-radio-button label="right">右</el-radio-button>
+                </el-radio-group>
+              </td>
+              <td class="isborder">
+                <el-slider v-model="item.width"></el-slider>
+              </td>
+              <td class="isborder">
+                <el-switch v-model="item.show"></el-switch>
+              </td>
+            </tr>
+          </table>
+        </section>
+      </el-card>
+
+      <el-card header="预览" class="mt-20">
+        <table id="table-print">
+          <tr>
+            <th v-for="(item, index) in tableColmnu" :key="index" v-show="item.show" :class="border ? 'isborder' : ''"
+              :style="[
+                tableStyle,
+                tableHeaderStyle,
+                { textAlign: item.align || 'left', width: `${item.width}%` }
+              ]">{{ item.label }}</th>
+          </tr>
+          <tr v-for="(tr, index) in tableSource" :key="index">
+            <td v-for="(td, i) in tableColmnu" :key="i" v-show="td.show" :class="border ? 'isborder' : ''"
+              :style="[tableStyle, { textAlign: td.align || 'left' }]">{{ tr[td.prop] }}</td>
+          </tr>
+        </table>
+      </el-card>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-print-nb"></script>
+  <script>
+
+    // 表格属性
+    const tableColmnu = [
+      { label: "#", prop: "id" },
+      { label: "名字", prop: "name" },
+      { label: "年龄", prop: "age" },
+      { label: "爱好", prop: "breed" }
+    ];
+
+    // 表格数据
+    const tableSource = [
+      { id: 1, name: "站岗", age: 10, breed: "阿U僧伽报告" },
+      { id: 2, name: "阿斯达", age: 12, breed: "阿U僧伽报告阿斯达" },
+      { id: 3, name: "规范", age: 15, breed: "阿U僧伽报告打算" },
+      { id: 4, name: "暗示", age: 20, breed: "阿U僧伽报告阿斯达" },
+      { id: 5, name: "423阿斯达", age: 50, breed: "阿U僧伽报告打算" }
+    ];
+
+    // 表格单元默认属性
+    const DEFAULT_COLMNU = {
+      align: "left",
+      show: true
+    };
+
+    // 表格属性合并
+    const gen = function (arr) {
+      return arr.map(function (item) {
+        return Object.assign(
+          item,
+          { width: parseInt((1 / arr.length) * 100) },
+          DEFAULT_COLMNU
+        );
+      });
+    };
+
+    function IEVersion() {
+      const userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+      const isIE =
+        userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+      const isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
+      const isIE11 =
+        userAgent.indexOf("Trident") > -1 && userAgent.indexOf("rv:11.0") > -1;
+      if (isIE) {
+        const reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+        reIE.test(userAgent);
+        const fIEVersion = parseFloat(RegExp["$1"]);
+        if (fIEVersion == 7) {
+          return 7;
+        } else if (fIEVersion == 8) {
+          return 8;
+        } else if (fIEVersion == 9) {
+          return 9;
+        } else if (fIEVersion == 10) {
+          return 10;
+        } else {
+          return 6; //IE版本<=7
+        }
+      } else if (isEdge) {
+        return 12; //edge
+      } else if (isIE11) {
+        return 11; //IE11
+      } else {
+        return -1; //不是ie浏览器
+      }
+    }
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          border: true,
+          showEdit: true,
+          tableColmnu: gen(tableColmnu),
+          tableSource,
+          tableStyle: {
+            textAlign: "left",
+            fontSize: "14px",
+            padding: "5px"
+          },
+          tableHeaderStyle: {
+            color: "#666666"
+          },
+          isIE: IEVersion() > 0,
+          printObj: {
+            id: "table-print",
+            popTitle: document.title,
+            extraHead: '<meta http-equiv="Content-Language"content="zh-cn"/>'
+          }
+        }
+      },
+      methods: {
+        copy() {
+          const Url2 = document.getElementById("copyContent");
+          window.clipboardData.setData("Text", Url2.innerText);
+        }
+      },
+      filters: {
+        pxF(v) {
+          return Number(v.replace("px", ""));
+        }
+      },
+      methods: {
+        jsPreview(id) {
+          const html = `<div>${document.getElementById(id).outerHTML}</div>`
+          document.body.innerHTML = html
+          window.print()
+          window.location.reload()
+        },
+        goback() {
+          console.log('back')
+          window.location.href = '/'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
