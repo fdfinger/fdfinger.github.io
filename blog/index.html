@@ -1,83 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>江飞的技术博客</title>
-  <link rel="stylesheet" type="text/css" href="http://fdfinger.github.io/static/css/bulma.min.css">
-  <script type="text/javascript" src="http://fdfinger.github.io/static/js/index.js" defer></script>
-  <script type="text/javascript" src="http://fdfinger.github.io/static/components/index.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <title>Blog列表</title>
+  <link rel="shortcut icon" href="/static/image/logo.svg" type="image/x-icon">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
+
 <body>
-  <header>
-    <z-nav></z-nav>
-  </header>
-  <div id="blog"></div>
+  <div id="app">
+    <el-card>
+      <el-page-header @back="goback()" content="页面"></el-page-header>
+    </el-card>
+
+    <el-card class="mt-20">
+      <span slot="header">
+        <el-autocomplete v-model="state" size="small" :fetch-suggestions="querySearchAsync" placeholder="请输入页面名"
+          @select="handleSelect"></el-autocomplete>
+      </span>
+      <el-timeline>
+        <el-timeline-item v-for="(page, index) in pages" :key="index" :timestamp="page.time" placement="top">
+          <el-link @click="goTo(page.page)">{{page.content}}</el-link>
+        </el-timeline-item>
+      </el-timeline>
+    </el-card>
+
+    <el-backtop target=""></el-backtop>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <script>
-    function getData() {
-      getBlog()
-        .then(function(res){
-          renderData(res);
-        })
-    }
-    const ColorList = [
-      'is-primary',
-      'is-info',
-      'is-success',
-      'is-warning',
-      'is-danger',
-      'is-light',
-      'is-dark',
-      'is-light',
-      'is-primary'
+    const pages = [
+      { time: '2019/8/7', page: '2019/20190807SearchPage.html', content: '搜索页源码' },
+      { time: '2020/7/26', page: '2019/20190726TypeScript.html', content: 'TypeScript学习笔记' },
+      { time: '2020/7/26', page: '2019/20190726Less.html', content: 'less学习笔记笔记' },
+      { time: '2020/7/1', page: '2019/20190701vue_template.html', content: 'vue优化学习笔记' },
+      { time: '2020/6/27', page: '2019/20190627.html', content: '一个简单的网页' }
     ]
-    function randomColor() {
-      return ColorList[Math.floor(Math.random() * 10)]
-    }
-    function getColumns (params) {
-      let _new = document.createElement('div');
-      _new.className = 'columns';
-      _new.innerHTML = params.map(function(i){
-        return `
-          <div class="column">
-            <section class="hero ${randomColor()}">
-              <div class="hero-body">
-                <div class="level">
-                  <div class="level-left">
-                    <div class="container">
-                      <h1 class="title">${i.title}</h1>
-                      <p>${i.subtitle}</p>
-                    </div>
-                  </div>
-                  <div class="level-right">
-                    <a href="${i.url}" class="button is-danger" target="_blank">去瞅瞅</a>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        `
-      }).join('');
-      return _new;
-    }
-
-    function renderData(params){
-      let cardList = document.getElementById('blog')
-      const paramsLength = params.length / 4;
-      for(let o=0; o<paramsLength;o++){
-        cardList.appendChild(getColumns(params.splice(0, 4)))
-      }
-    }
-
-    function init(){
-      getData();
-    }
-
-    window.onload = function () {
-      init();
-    }
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          pages: pages,
+          state: ''
+        }
+      },
+      methods: {
+        goTo(page) {
+          window.location.href = '/blog/' + page;
+        },
+        goback() {
+          window.history.back()
+        },
+        querySearchAsync (queryString, cb) {
+          const restaurants = this.pages.map(function(item){ return {value: item.content, address: item.page} });
+          var results = queryString ? restaurants.filter(function(item){ return item.value.indexOf(queryString) > -1 }) : restaurants;
+          console.log(results);
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(function () {
+            cb(results);
+          }, 200);
+        },
+        handleSelect(item) {
+          this.goTo(item.address)
+        }
+      },
+    })
   </script>
 </body>
+
 </html>

@@ -6,14 +6,16 @@
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <link rel="shortcut icon" href="/static/image/logo.svg" type="image/x-icon">
-  <title>兼容性自定义打印</title>
+  <title>页面设置</title>
   <style>
     body {
       margin: 30px;
     }
+
     .mt-10 {
       margin-top: 10px;
     }
+
     .mt-20 {
       margin-top: 20px;
     }
@@ -23,10 +25,14 @@
 <body>
   <div id="app">
     <el-card>
-      <el-page-header @back="goBack()" content="页面"></el-page-header>
+      <el-page-header @back="goback()" content="页面"></el-page-header>
     </el-card>
 
     <el-card class="mt-20">
+      <span slot="header">
+        <el-autocomplete v-model="state" size="small" :fetch-suggestions="querySearchAsync" placeholder="请输入页面名"
+          @select="handleSelect"></el-autocomplete>
+      </span>
       <el-timeline>
         <el-timeline-item v-for="(page, index) in pages" :key="index" :timestamp="page.time" placement="top">
           <el-link @click="goTo(page.page)">{{page.content}}</el-link>
@@ -55,15 +61,28 @@
       el: '#app',
       data() {
         return {
-          pages: pages
+          pages: pages,
+          state: ''
         }
       },
       methods: {
         goTo(page) {
           window.location.href = '/pages/' + page;
         },
-        goBack () {
+        goback() {
           window.history.back()
+        },
+        querySearchAsync (queryString, cb) {
+          const restaurants = this.pages.map(function(item){ return {value: item.content, address: item.page} });
+          var results = queryString ? restaurants.filter(function(item){ return item.value.indexOf(queryString) > -1 }) : restaurants;
+          console.log(results);
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(function () {
+            cb(results);
+          }, 200);
+        },
+        handleSelect(item) {
+          this.goTo(item.address)
         }
       },
     })

@@ -1,68 +1,99 @@
 <!DOCTYPE html>
-<html lang="chinese (simplified)">
+<html>
+
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>JiangFei Blog</title>
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <script src="./static/js/index.js" async></script>
-  <script src="./static/components/index.js" async></script>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    #hero-main {
-      background-image: url('https://weiliicimg6.pstatp.com/weili/sm/191572764285075458.jpg');
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link rel="shortcut icon" href="/static/image/logo.svg" type="image/x-icon">
+  <link rel="stylesheet" href="./static/css/style.css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
-  <div>
-    <z-nav></z-nav>
-
-    <section class="hero is-primary is-bold is-medium" id="hero-main">
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="title is-black">
-            个人博客
-          </h1>
-          <p class="subtitle">
-            这是江飞的个人博客
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <div id="app"></div>
-
-    </div>
+  <div id="app">
+    <el-container style="height: 100%;">
+      <el-header style="padding: 0px; box-shadow: 0 1px 0 rgba(0,0,0,.06);">
+        <el-link class="text-1x ml-20 mr-20" href="/" target="_blank">江飞的博客</el-link>
+        <el-link class="text-1x mr-20" href="/blog/" target="_blank">笔记</el-link>
+        <el-link class="text-1x mr-20" href="/pages/" target="_blank">页面</el-link>
+        <span class="float-right">
+          <el-link class="text-1x mr-20" href="https://github.com/fdfinger" target="_blank">
+            <i class="fa fa-github-alt"></i>
+          </el-link>
+          <el-link class="text-1x mr-20" href="https://weibo.com/keaiyucheng" target="_blank">
+            <i class="fa fa-weibo"></i>
+          </el-link>
+        </span>
+      </el-header>
+      <el-main>
+        <el-card>
+          <el-table :data="pages" :show-header="false" @row-click="rowClick">
+            <el-table-column type="index" width="50"></el-table-column>
+            <el-table-column property="title" label="标题">
+              <template slot-scope="scope">
+                <el-link :href="scope.row.href" :title="'点击跳转 ' + scope.row.title">{{scope.row.title}}</el-link>
+              </template>
+            </el-table-column>
+            <el-table-column property="time" label="创建时间">
+              <template slot-scope="scope">{{scope.row.time | timeShow}}</template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-main>
+    </el-container>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <script>
-    function getData() {
-      getPage()
-        .then(function(res){
-          renderData(res);
-        })
+    const pages = [
+      { title: '一个简单的网页', href: '/blog/2019/20190627.html' },
+      { title: 'vue优化学习笔记', href: '/blog/2019/20190701vue_template.html' },
+      { title: 'less学习笔记笔记', href: '/blog/2019/20190726Less.html' },
+      { title: 'TypeScript学习笔记', href: '/blog/2019/20190726TypeScript.html' },
+      { title: '搜索页源码', href: '/blog/2019/20190807SearchPage.html' },
+      { title: '搜索页效果', href: '/pages/2019/20190807/' },
+      { title: '指尖江湖物产查询', href: '/pages/2019/20190624zhijian.html' },
+      { title: '自定义监控', href: '/pages/2019/20190626.html' },
+      { title: '一级五行石售卖计算', href: '/pages/2020/20200107.html' },
+      { title: '上传图片', href: '/pages/2020/20200109.html' },
+      { title: '2020年新春祝福生成', href: '/pages/2020/20200125.html' },
+      { title: 'element响应式布局', href: '/pages/2020/20200402.html' },
+      { title: '兼容性打印', href: '/pages/2020/20200403.html' }
+    ]
+
+    for (let index = 0; index < pages.length; index++) {
+      const element = pages[index];
+      const isblog = element.href.indexOf('blog') > -1
+      if (isblog) {
+        element.time = element.href.slice(11, 19)
+      } else {
+        element.time = element.href.slice(12, 20)
+      }
     }
 
-    function renderData(params){
-      let cardList = document.getElementById('app')
-      cardList.innerHTML = params.map(function(i){
-        return `<z-section title="${i.name}" content="${i.desc}" url="${i.url}"></z-section>`
-      }).join('')
-    }
-
-    function init(){
-      getData();
-    }
-
-    window.onload = function () {
-      init();
-    }
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          pages: pages
+        }
+      },
+      filters: {
+        timeShow (v) {
+          return v.slice(0,4) + '-' + v.slice(4,6) + '-' + v.slice(6,8)
+        }
+      },
+      methods: {
+        rowClick (row, event, column) {
+          console.log(row);
+          window.location.href = row.href
+        }
+      }
+    })
   </script>
 </body>
 

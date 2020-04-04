@@ -1,0 +1,37 @@
+html, body {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+
+.float-right {
+  float: right;
+}
+.float-right::before {
+  clear: both;
+}
+
+.text-v {
+  vertical-align: middle;
+}
+.ma-10 {
+  margin: 10px;
+}
+
+.text-1x {
+  font-size: 1.1em;
+  line-height: 60px;
+}
