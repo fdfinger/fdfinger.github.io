@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>JiangFei Blog</title>
+  <title>江飞的博客</title>
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   <link rel="shortcut icon" href="/static/image/logo.svg" type="image/x-icon">
   <link rel="stylesheet" href="./static/css/style.css">
@@ -16,20 +16,20 @@
   <div id="app">
     <el-container style="height: 100%;">
       <el-header style="padding: 0px; box-shadow: 0 1px 0 rgba(0,0,0,.06);">
-        <el-link class="text-1x ml-20 mr-20" href="/" target="_blank">江飞的博客</el-link>
-        <el-link class="text-1x mr-20" href="/blog/" target="_blank">笔记</el-link>
-        <el-link class="text-1x mr-20" href="/pages/" target="_blank">页面</el-link>
+        <el-link class="text-1x ml-20 mr-20" href="/" target="_blank" title="回到首页">江飞的博客</el-link>
+        <el-link class="text-1x mr-20" href="/blog/" target="_blank" title="点击跳转到笔记列表">笔记</el-link>
+        <el-link class="text-1x mr-20" href="/pages/" target="_blank" title="点击跳转到页面列表">页面</el-link>
         <span class="float-right">
-          <el-link class="text-1x mr-20" href="https://github.com/fdfinger" target="_blank">
+          <el-link class="text-1x mr-20" href="https://github.com/fdfinger" target="_blank" title="点击跳转到github">
             <i class="fa fa-github-alt"></i>
           </el-link>
-          <el-link class="text-1x mr-20" href="https://weibo.com/keaiyucheng" target="_blank">
+          <el-link class="text-1x mr-20" href="https://weibo.com/keaiyucheng" target="_blank" title="点击跳转到微博">
             <i class="fa fa-weibo"></i>
           </el-link>
         </span>
       </el-header>
       <el-main>
-        <el-card>
+        <el-card header="所有页面与笔记">
           <el-table :data="pages" :show-header="false" @row-click="rowClick">
             <el-table-column type="index" width="50"></el-table-column>
             <el-table-column property="title" label="标题">
