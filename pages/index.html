@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="shortcut icon" href="/static/image/logo.svg" type="image/x-icon">
+  <title>兼容性自定义打印</title>
+  <style>
+    body {
+      margin: 30px;
+    }
+    .mt-10 {
+      margin-top: 10px;
+    }
+    .mt-20 {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <el-card>
+      <el-page-header @back="goBack()" content="页面"></el-page-header>
+    </el-card>
+
+    <el-card class="mt-20">
+      <el-timeline>
+        <el-timeline-item v-for="(page, index) in pages" :key="index" :timestamp="page.time" placement="top">
+          <el-link @click="goTo(page.page)">{{page.content}}</el-link>
+        </el-timeline-item>
+      </el-timeline>
+    </el-card>
+
+    <el-backtop target=""></el-backtop>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script>
+    const pages = [
+      { time: '2020/4/3', page: '2020/20200403.html', content: '打印表格' },
+      { time: '2020/4/2', page: '2020/20200402.html', content: '响应式布局' },
+      { time: '2020/1/25', page: '2020/20200125.html', content: '新年祝福生成' },
+      { time: '2020/1/09', page: '2020/20200109.html', content: '图片上传' },
+      { time: '2020/1/07', page: '2020/20200107.html', content: '一级五行石计算' },
+      { time: '2019/6/26', page: '2019/20190626.html', content: '自定义监控' },
+      { time: '2019/6/24', page: '2019/20190624zhijian.html', content: '指尖江湖物产查询' },
+      { time: '2019/8/7', page: '2019/20190807/', content: '搜索动效页面' }
+    ]
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          pages: pages
+        }
+      },
+      methods: {
+        goTo(page) {
+          window.location.href = '/pages/' + page;
+        },
+        goBack () {
+          window.history.back()
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

@@ -17,6 +17,7 @@ customElements.define('z-nav',
           <button class="button navbar-burger" data-target="navbar_menu">
             <span><a href="/" class="navbar-item">主页</a></span>
             <span><a href="/blog" class="navbar-item">博客</a></span>
+            <span><a href="/pages" class="navbar-item">页面</a></span>
           </button>
           </div>
         <div class="navbar-menu" id="navbar_menu">
