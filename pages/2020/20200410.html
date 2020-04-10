@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>react+antd单页</title>
+  <link rel="shortcut icon" href="/static/image/logo.svg" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.1.1/antd.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script> -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/4.1.1/antd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/babel">
+    /** 时钟组件 */
+    class Clock extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {date: new Date()};
+      }
+
+      componentDidMount() {
+        this.timerID = setInterval(
+          () => this.tick(),
+          1000
+        );
+      }
+
+      componentWillUnmount() {
+        clearInterval(this.timerID);
+      }
+
+      tick() {
+        this.setState({
+          date: new Date()
+        });
+      }
+    
+      render() {
+        return (
+          <div>
+            <h2>现在是 {this.state.date.toLocaleTimeString()}.</h2>
+          </div>
+        );
+      }
+    }
+
+    class App extends React.Component {
+      goBack() {
+        window.history.back();
+      }
+      render() {
+        return (
+          <div>
+            <antd.Card size="small">
+              <antd.PageHeader onBack={() => this.goBack()} title="返回主页" subTitle="这是react+antd SPA 页面"></antd.PageHeader>
+            </antd.Card>
+            <antd.Card title="Antd的样式还是很好看的" className="ma-10 mt-20">
+              <Clock />
+              <antd.Button className="mr-20">点我没反应的</antd.Button>
+              <antd.Button type="primary" className="mr-20">点我没反应的</antd.Button>
+              <antd.Button type="dashed" className="mr-20">点我没反应的</antd.Button>
+              <antd.Button type="link">点我没反应的</antd.Button>
+            </antd.Card>
+          </div>
+        )
+      }
+    }
+
+    var domContainer = document.querySelector('#app')
+    ReactDOM.render(<App />, domContainer);
+  </script>
+</body>
+</html>
