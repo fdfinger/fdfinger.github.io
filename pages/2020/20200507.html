@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="shortcut icon" href="/static/image/logo.svg" type="image/x-icon">
+  <title>实体符号</title>
+  <style>
+    #app,
+    html {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .w-100 {
+      width: 100px;
+    }
+
+    .ml-20 {
+      margin-left: 20px;
+    }
+
+
+    .mt-20 {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <section>
+      <el-card>
+        <el-page-header @back="goback()" content="实体符号" ></el-page-header>
+      </el-card>
+      <el-card class="mt-20">
+        <article>
+          <header><h2>v-html</h2></header>
+          <section>
+            <p v-html="entities"></p>
+          </section>
+        </article>
+        <el-divider></el-divider>
+        <article>
+          <header><h2>v-text</h2></header>
+          <section>
+            <p v-text="entities"></p>
+          </section>
+        </article>
+        <el-divider></el-divider>
+        <article>
+          <header><h2>{{}}</h2></header>
+          <section>
+            <p>{{entities}}</p>
+          </section>
+        </article>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-print-nb"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          entities: '&lt;aaa&gt;'
+        }
+      },
+      methods: {
+        goback() {
+          window.history.back()
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
