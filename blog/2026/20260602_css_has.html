@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nesting 原生嵌套 + :has() 选择器</title>
+    <style>
+      /* has 选择器 */
+      h2:has(+ p) {
+        color: gray;
+        background-color: gold;
+        border: 2px dotted red;
+      }
+
+      parent:has(div) {
+        border: 1px solid red;
+      }
+
+      ul li:has(input:checked) {
+        border: 2px solid maroon;
+      }
+
+      /* Nesting 原生嵌套 */
+      .form {
+        & label.form-item {
+          color: #aaa;
+        }
+      }
+
+      section {
+        border: 1px solid #eee;
+        border-radius: 4px;
+        margin-bottom: 12px;
+        padding: 12px;
+        background-color: #f5f5f5;
+        & header {
+          font-size: 1.2em;
+          font-weight: bolder;
+          padding-bottom: 12px;
+          border-bottom: 3px solid #eee;
+        }
+        & code {
+          font-size: 0.89em;
+          color: green;
+        }
+      }
+      .contianer {
+        display: grid;
+        grid-template-columns: 3fr 3fr 3fr;
+        gap: 12px;
+      }
+
+      body {
+        background: linear-gradient(to right, red, yellow, blue);
+        & h1 {
+          background: linear-gradient(to right, blue, red);
+          text-align: center;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Nesting 原生嵌套 + :has() 选择器 学习</h1>
+    <div class="contianer">
+
+
+      <section>
+        <header>h2:has(+ p)</header>
+        <pre>
+          <p>css:</p>
+          <code>
+            h2:has(+ p) {
+              color: gray;
+              background-color: gold;
+              border: 2px dotted red;
+            }
+          </code>
+        </pre>
+        <div>
+          <h2>打豆豆</h2>
+          <p>测试</p>
+        </div>
+      </section>
+  
+      <section>
+        <header>parent:has(div)</header>
+        <pre>
+          <p>css:</p>
+          <code>
+          parent:has(div) {
+            border: 1px solid red;
+          }
+          </code>
+        </pre>
+        <div>
+          <parent>
+            <div>测试</div>
+          </parent>
+        </div>
+      </section>
+  
+      <section>
+        <header>ul li:has(input:checked)</header>
+        <pre>
+          <p>css:</p>
+          <code>
+          ul li:has(input:checked) {
+            border: 2px solid maroon;
+          }
+          </code>
+        </pre>
+        <div class="form">
+          <ul>
+            <li>
+              <input type="checkbox" name="test1" id="test1" /><label
+                for="test1"
+                class="form-item"
+                >测试1</label
+              >
+            </li>
+            <li>
+              <input type="checkbox" name="test2" id="test2" /><label
+                for="test2"
+                class="form-item"
+                >测试2</label
+              >
+            </li>
+            <li>
+              <input type="checkbox" name="test3" id="test3" /><label
+                for="test3"
+                class="form-item"
+                >测试3</label
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

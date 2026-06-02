@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>外链下载</title>
+</head>
+<body>
+  <div id='qrcode'>
+    <a href="https://open.weixin.qq.com/qr/code?username=gh_0a5de5c5ed99" download="wechat" target="_blank">
+      <img src="https://open.weixin.qq.com/qr/code?username=gh_0a5de5c5ed99" alt="wechat image" />
+    </a>
+    <button onclick="download">download img</button>
+  </div>
+  <script>
+    function download () {
+      const img =document.querySelector('#qrcode img')
+      const url = img.src
+      const a = document.createElement('a')
+      const event = new MouseEvent('click')
+
+      a.download = '图片下载'
+      a.href = url
+      a.textContent = '图片下载'
+      document.body.appendChild(a)
+      a.dispatchEvent(event)
+    }
+  </script>
+</body>
+</html>
