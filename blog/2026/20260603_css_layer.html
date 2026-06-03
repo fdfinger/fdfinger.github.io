@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Container Queries 容器查询 + @layer 层叠层</title>
+    <style>
+      /* 层叠层，先是根据顺序来，后面的覆盖前面的 */
+      @layer special, base;
+      @layer special {
+        div.box {
+          color: rebeccapurple;
+        }
+      }
+      @layer base {
+        div.box {
+          color: white;
+          background-color: red;
+        }
+        @container (min-width: 300px) {
+          div.box {
+            background-color: blue;
+          }
+        }
+        @container (min-width: 500px) {
+          div.box {
+            background-color: green;
+          }
+        }
+      }
+      /* 容器父节点必须设置 container-type 属性 */
+      #page {
+        container-type: inline-size;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page">
+      <h1>Container Queries 容器查询 + @layer 层叠层</h1>
+      <p>当页面宽度小于300px时，背景色为红色；当页面宽度大于300px时，背景色为蓝色；当页面宽度大于500px时，背景色为绿色。</p>
+      <div class="box">测试</div>
+    </div>
+  </body>
+</html>
