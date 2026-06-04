@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subgrid 子网格 + Custom Properties 进阶</title>
+    <style>
+      :root {
+        --main-color: red;
+        --radius-size: 4px;
+        --bg: #f0f0f0;
+      }
+      .card-list {
+        border-radius: var(--radius-size);
+        background-color: var(--bg);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(24px, auto);
+        gap: 0.8rem;
+        align-items: start;
+        padding: 0.8rem;
+      }
+
+      .card {
+        border-radius: var(--radius-size);
+        background-color: #bbb;
+        display: grid;
+        grid-template-rows: subgrid; /* 继承父行轨道 */
+        grid-row: span 3;
+        gap: 0.8rem;
+      }
+      .subgrid1, .subgrid2, .subgrid3 {
+        border-radius: var(--radius-size);
+        background-color: lightpink;
+      }
+      .subgrid1 {
+        grid-column: 4 / 6;
+        grid-row: 1 / 1;
+      }
+      .subgrid2 {
+        grid-column: 3 / 6;
+        grid-row: 1 / 2;
+      }
+      .subgrid3 {
+        grid-column: 2 / 6;
+        grid-row: 1 / 3;
+      }
+
+      
+
+      /* Custom Properties */
+      .custom-properties {
+        --main-color: rebeccapurple;
+        color: var(--main-color);
+      }
+
+      .custom-properties-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        margin-top: 0.8rem;
+        & .box {
+          border-radius: var(--radius-size);
+          background-color: lightblue;
+          padding: 1rem;
+        }
+      }
+
+      header {
+        h1, h2 {
+          text-align: center;
+        }
+        h2 {
+          background-color: var(--bg);
+          margin: 0;
+          border-bottom: 1px solid #ccc;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Subgrid 子网格 + Custom Properties 进阶</h1>
+        <h2>Subgrid 子网格</h2>
+      </header>
+      <main class="card-list">
+        <section class="card">
+          <div>
+            <h2>卡片 1</h2>
+          </div>
+          <div class="subgrid1">
+            <div>1</div>
+          </div>
+          <footer>
+            <p></p>
+          </footer>
+        </section>
+        <section class="card">
+          <div>
+            <h2>卡片 2</h2>
+          </div>
+          <div class="subgrid2">
+            <div>2</div>
+          </div>
+          <footer>
+            <p></p>
+          </footer>
+        </section>
+        <section class="card">
+          <div>
+            <h2>卡片 3</h2>
+          </div>
+          <div class="subgrid3">
+            <div>3</div>
+          </div>
+          <footer>
+            <p></p>
+          </footer>
+        </section>
+      </main>
+      <div class="custom-properties-container">
+        <div class="box">
+          <h2>Custom Properties 进阶</h2>
+          <div class="custom-properties">
+            <p>这是一个自定义的属性.</p>
+            <h3>css:代码</h3>
+            <pre>
+              <code>
+                :root {
+                  --main-color: red;
+                }
+                .custom-properties {
+                  --main-color: rebeccapurple;
+                  color: var(--main-color);
+                }
+              </code>
+            </pre>
+          </div>
+
+        </div>
+        <div class="box">
+          <h3>全局root变量的颜色</h3>
+          <p style="color: var(--main-color);">
+            在全局的 :root 选择器中定义的 Custom Properties 可以在整个文档中使用。
+          </p>
+          <p>
+            这就是为什么 Element-Plus 有的需要局部自定义宽高需要在 节点的 style 中直接设置 CSS 变量，而不是在全局的 :root 中设置，因为全局的 CSS 变量会被 Element-Plus 的样式覆盖掉。
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
