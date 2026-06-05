@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS: View Transitions 页面过渡动画</title>
+  <style>
+    .element {
+      color: blue;
+      transition: color 0.3s ease;
+    }
+
+    .element:hover {
+      color: red;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.8rem;
+      & .card {
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 12px;
+        background-color: #f5f5f5;
+        & header {
+          font-size: 1.2em;
+          font-weight: bolder;
+          padding-bottom: 12px;
+          border-bottom: 3px solid #eee;
+          & h2 {
+            margin: 0;
+          }
+        }
+        & code {
+          font-size: 0.89em;
+          color: green;
+        }
+      }
+
+      & .width {
+            width: 100px;
+            height: 100px;
+            border: 3px solid black;
+            margin: 10px 0px 0px 10px;
+            transition-property: width, background, transform;
+            transition-duration: .25s, 1s, 2s;
+            transition-timing-function: linear, ease, ease;
+            transition-delay: 1.9s, 2s, 0s;
+        }
+      & .width:hover {
+            width: 200px;
+            background-color: blue;
+            transform: rotate(180deg);
+        }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <header>
+      <h1>CSS: View Transitions 页面过渡动画</h1>
+    </header>
+    <main class="container">
+      <section class="card">
+        <header>
+          <h2>字体颜色悬浮过渡</h2>
+        </header>
+        <pre>
+          <code>
+.element {
+  color: blue;
+  transition: color 0.3s ease;
+}
+
+.element:hover {
+  color: red;
+}
+          </code>
+        </pre>
+        <div class="element">悬浮在我上面看看</div>
+      </section>
+
+      <section class="card">
+        <header>
+          <h2>width, background, transform 过渡</h2>
+        </header>
+        <pre>
+          <code>
+.width {
+    width: 100px;
+    height: 100px;
+    border: 3px solid black;
+    margin: 10px 0px 0px 10px;
+    transition-property: width, background, transform;
+    transition-duration: .25s, 1s, 2s;
+    transition-timing-function: linear, ease, ease;
+    transition-delay: 1.9s, 2s, 0s;
+}
+.width:hover {
+    width: 200px;
+    background-color: blue;
+    transform: rotate(180deg);
+}
+          </code>
+        </pre>
+        <div class="width">鼠标悬浮一下</div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
