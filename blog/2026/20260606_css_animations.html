@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> CSS 新特性学习：Scroll-driven Animations + Color
+  functions（oklch/color-mix）</title>
+  <style>
+    @keyframes fade-in {  
+      from { opacity: 0; transform: translateY(300px); }  
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+
+      & .card {
+        max-height: 400px;
+        overflow: auto;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 12px;
+        background-color: #f5f5f5;
+        animation-name: fade-in;
+        
+        animation-timeline: view();
+        animation-range: entry 0% cover 30%;
+        animation-fill-mode: both;
+        & header {
+          font-size: 1.2em;
+          font-weight: bolder;
+          padding-bottom: 12px;
+          border-bottom: 3px solid #eee;
+          & h2 {
+            margin: 0;
+          }
+        }
+        & code {
+          font-size: 0.89em;
+          color: green;
+        }
+
+        & .card-item {
+          background-color: antiquewhite;
+          padding: 8px;
+          opacity: 0;
+          transform: translateY(10px);
+          animation-name: fade-in;
+          animation-timeline: view();
+          animation-range: entry 0% cover 40%;
+          animation-fill-mode: both;
+          animation-duration: 1s;
+        }
+
+      }
+
+      & .box { color: oklch(50% 0.2 180deg / 0.8); }
+      & .box-1 { color: color(display-p3 0.8 0.2 0.5 / 0.9); }
+      & .box-2 { color: color-mix(in oklab, hsl(40 20% 60%) 70%, red 30%); }
+      & .box-3 { color: oklch(from rgb(255 210 1 / 0.5) 50% 0.2 h / a); }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <header>
+      <h1>CSS 新特性学习：Scroll-driven Animations + Color functions（oklch/color-mix）</h1>
+    </header>
+    <main class="container">
+      <section class="card">
+        <header>
+          <h2>Scroll-driven Animations</h2>
+        </header>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem repellat non ratione eum provident quaerat obcaecati dicta autem voluptates sit cum quis distinctio, atque sint commodi reprehenderit perspiciatis iure velit molestiae eos molestias ipsa nihil quia? Porro tempore in fugit, aspernatur et temporibus aliquam magnam adipisci deleniti dicta repellat alias nostrum impedit quidem odit excepturi nam. Itaque numquam unde quae dignissimos exercitationem placeat, ipsa amet tempora vitae ullam animi! Hic asperiores in esse atque expedita dolorem officia illo commodi fugit earum ab, assumenda optio, sed repellat. Maiores laudantium reprehenderit suscipit accusamus assumenda, debitis nemo ut sapiente numquam doloremque alias explicabo minus autem harum illum dicta. Unde obcaecati inventore repellat id eligendi eaque, rerum aliquam maiores aspernatur cumque tenetur quo qui mollitia atque quasi voluptate ipsum neque explicabo voluptatem quibusdam beatae quae iste vero doloribus! Natus libero quibusdam molestias harum atque, assumenda doloribus quis, quam corporis, voluptas suscipit magni! Enim sapiente totam consequatur repellat maxime placeat perferendis iste maiores soluta, obcaecati incidunt expedita eius cumque ipsa quo sed. Minus distinctio culpa cumque labore nulla laborum ex, explicabo magni mollitia eaque aliquam vero blanditiis quae, id necessitatibus error voluptas harum tempora sint porro. Facilis beatae quasi soluta et ipsum suscipit repellendus inventore.
+
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus, ipsam molestias. Fuga similique, dolor tempora rerum perferendis ipsam ullam doloribus beatae esse facilis quae sit excepturi expedita non, sunt accusantium magnam? Animi nesciunt nostrum eligendi iusto voluptatum hic qui. Quod distinctio qui nobis et doloremque. Fuga, itaque? Laborum dignissimos nobis quaerat optio voluptatum similique unde, neque cupiditate, vel, fugiat dolore? Accusantium neque deserunt ducimus enim, illum laborum magni ipsam eos optio aspernatur nam necessitatibus quod natus, dolor laboriosam illo velit.
+
+Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem repellat non ratione eum provident quaerat obcaecati dicta autem voluptates sit cum quis distinctio, atque sint commodi reprehenderit perspiciatis iure velit molestiae eos molestias ipsa nihil quia? Porro tempore in fugit, aspernatur et temporibus aliquam magnam adipisci deleniti dicta repellat alias nostrum impedit quidem odit excepturi nam. Itaque numquam unde quae dignissimos exercitationem placeat, ipsa amet tempora vitae ullam animi! Hic asperiores in esse atque expedita dolorem officia illo commodi fugit earum ab, assumenda optio, sed repellat. Maiores laudantium reprehenderit suscipit accusamus assumenda, debitis nemo ut sapiente numquam doloremque alias explicabo minus autem harum illum dicta. Unde obcaecati inventore repellat id eligendi eaque, rerum aliquam maiores aspernatur cumque tenetur quo qui mollitia atque quasi voluptate ipsum neque explicabo voluptatem quibusdam beatae quae iste vero doloribus! Natus libero quibusdam molestias harum atque, assumenda doloribus quis, quam corporis, voluptas suscipit magni! Enim sapiente totam consequatur repellat maxime placeat perferendis iste maiores soluta, obcaecati incidunt expedita eius cumque ipsa quo sed. Minus distinctio culpa cumque labore nulla laborum ex, explicabo magni mollitia eaque aliquam vero blanditiis quae, id necessitatibus error voluptas harum tempora sint porro. Facilis beatae quasi soluta et ipsum suscipit repellendus inventore.
+
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus, ipsam molestias. Fuga similique, dolor tempora rerum perferendis ipsam ullam doloribus beatae esse facilis quae sit excepturi expedita non, sunt accusantium magnam? Animi nesciunt nostrum eligendi iusto voluptatum hic qui. Quod distinctio qui nobis et doloremque. Fuga, itaque? Laborum dignissimos nobis quaerat optio voluptatum similique unde, neque cupiditate, vel, fugiat dolore? Accusantium neque deserunt ducimus enim, illum laborum magni ipsam eos optio aspernatur nam necessitatibus quod natus, dolor laboriosam illo velit.
+
+Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem repellat non ratione eum provident quaerat obcaecati dicta autem voluptates sit cum quis distinctio, atque sint commodi reprehenderit perspiciatis iure velit molestiae eos molestias ipsa nihil quia? Porro tempore in fugit, aspernatur et temporibus aliquam magnam adipisci deleniti dicta repellat alias nostrum impedit quidem odit excepturi nam. Itaque numquam unde quae dignissimos exercitationem placeat, ipsa amet tempora vitae ullam animi! Hic asperiores in esse atque expedita dolorem officia illo commodi fugit earum ab, assumenda optio, sed repellat. Maiores laudantium reprehenderit suscipit accusamus assumenda, debitis nemo ut sapiente numquam doloremque alias explicabo minus autem harum illum dicta. Unde obcaecati inventore repellat id eligendi eaque, rerum aliquam maiores aspernatur cumque tenetur quo qui mollitia atque quasi voluptate ipsum neque explicabo voluptatem quibusdam beatae quae iste vero doloribus! Natus libero quibusdam molestias harum atque, assumenda doloribus quis, quam corporis, voluptas suscipit magni! Enim sapiente totam consequatur repellat maxime placeat perferendis iste maiores soluta, obcaecati incidunt expedita eius cumque ipsa quo sed. Minus distinctio culpa cumque labore nulla laborum ex, explicabo magni mollitia eaque aliquam vero blanditiis quae, id necessitatibus error voluptas harum tempora sint porro. Facilis beatae quasi soluta et ipsum suscipit repellendus inventore.
+
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus, ipsam molestias. Fuga similique, dolor tempora rerum perferendis ipsam ullam doloribus beatae esse facilis quae sit excepturi expedita non, sunt accusantium magnam? Animi nesciunt nostrum eligendi iusto voluptatum hic qui. Quod distinctio qui nobis et doloremque. Fuga, itaque? Laborum dignissimos nobis quaerat optio voluptatum similique unde, neque cupiditate, vel, fugiat dolore? Accusantium neque deserunt ducimus enim, illum laborum magni ipsam eos optio aspernatur nam necessitatibus quod natus, dolor laboriosam illo velit.</p>
+        <div class="card-item">1</div>
+        <div class="card-item">2</div>
+        <div class="card-item">3</div>
+      </section>
+      <section class="card">
+        <header>
+          <h2>Color functions（oklch/color-mix）</h2>
+        </header>
+        <div class="box">{ color: oklch(50% 0.2 180deg / 0.8); }</div>
+        <div class="box-1">{ color: color(display-p3 0.8 0.2 0.5 / 0.9); }</div>
+        <div class="box-2">{ color: color-mix(in oklab, hsl(40 20% 60%) 70%, red 30%); }</div>
+        <div class="box-3">{ color: oklch(from rgb(255 210 1 / 0.5) 50% 0.2 h / a); }</div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
