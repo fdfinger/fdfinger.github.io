@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML基础标签+语义化标签</title>
+  <style>
+    main {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 1rem;
+    }
+    header {
+      font-size: 1.5em;
+      font-weight: bold;
+      padding: 12px;
+    }
+    nav.nav {
+      background-color: #f5f5f5;
+      padding: 12px;
+      border-radius: 4px;
+      & ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        & li {
+          display: inline-block;
+          margin-bottom: 8px;
+          & a {
+            text-decoration: none;
+            color: #333;
+            &:hover {
+              color: #007BFF;
+            }
+          }
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>首页</header>
+  <nav class="nav">
+    <ul>
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+  </nav>
+  <main>
+    <aside>
+      <nav>
+        <ul>
+          <li><a href="#html-basics">HTML基础标签</a></li>
+          <li><a href="#semantic-tags">HTML语义化标签</a></li>
+          <li><a href="#html5-features">HTML5新特性</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <article>
+      <section id="html-basics">
+        html基础标签包括：div、span、p、a、img、ul、ol、li等。这些标签用于构建网页的基本结构和内容。
+      </section>
+      <section id="semantic-tags">
+        html语义化标签包括：header、nav、main、article、section、aside、footer等。这些标签用于描述网页的不同部分，增强网页的可读性和可访问性。
+      </section>
+      <section id="html5-features">
+        HTML5新特性包括：新的语义化标签、音频和视频标签、Canvas绘图、表单增强、离线存储等。这些特性使得网页开发更加丰富和强大。
+      </section>
+    </article>
+  </main>
+  <footer>
+    <a href="tel:123-456-7890">联系电话：123-456-7890</a>
+    <a href="mailto:example@email.com">邮箱：example@email.com</a>
+    <address>
+      <p>&copy; 2023 HTML基础标签+语义化标签. All rights reserved.</p>
+    </address>
+  </footer>
+</body>
+</html>
