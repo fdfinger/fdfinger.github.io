@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>财务</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.5.22/vue.global.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/element-plus/2.11.4/index.full.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/element-plus-icons-vue/2.3.2/global.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue-echarts/8.0.0/index.min.js"></script>
+</head>
+<body>
+    <div id="app">
+      <p>{{ message }}</p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+        <!-- 资产占比饼状图 -->
+        <div style="flex: 1; min-width: 300px;">
+          <h3>资产占比</h3>
+          <v-chart :option="pieOption" style="height: 400px;" autoresize></v-chart>
+        </div>
+
+        <!-- 资产明细 -->
+        <div style="flex: 1; min-width: 300px;">
+          <h3>资产明细</h3>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <th style="border:1px solid #ddd; padding: 8px; background: #f5f5f5;">项目</th>
+              <th style="border:1px solid #ddd; padding: 8px; background: #f5f5f5;">金额</th>
+              <th style="border:1px solid #ddd; padding: 8px; background: #f5f5f5;">占比</th>
+            </tr>
+            <tr v-for="item in assetList" :key="item.name">
+              <td style="border:1px solid #ddd; padding: 8px;">{{ item.name }}</td>
+              <td style="border:1px solid #ddd; padding: 8px; text-align: right;">{{ item.value.toLocaleString() }} 元</td>
+              <td style="border:1px solid #ddd; padding: 8px; text-align: right;">{{ item.percentage }}%</td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #ddd; padding: 8px; font-weight: bold;">合计</td>
+              <td style="border:1px solid #ddd; padding: 8px; text-align: right; font-weight: bold;">{{ total.toLocaleString() }} 元</td>
+              <td style="border:1px solid #ddd; padding: 8px; text-align: right; font-weight: bold;">100%</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <script>
+      const app = Vue.createApp({
+          data() {
+              return {
+                 cash: 10000, // 现金
+                 stock: 213000, // 东方财富-股票
+                 currency: 55000,  // 天天基金-货币基金
+                 deposit: 120000, // 存款
+                 bank: 3600 // 银行活期
+              };
+          },
+          computed: {
+              total() {
+                  return this.cash + this.stock + this.currency + this.deposit + this.bank;
+              },
+              message() {
+                  return `总资产：${this.total.toLocaleString()} 元`;
+              },
+              assetList() {
+                  const items = [
+                      { name: '股票', value: this.stock },
+                      { name: '存款', value: this.deposit },
+                      { name: '货币基金', value: this.currency },
+                      { name: '现金+银行活期', value: this.cash + this.bank }
+                  ];
+                  return items.map(item => ({
+                      ...item,
+                      percentage: ((item.value / this.total) * 100).toFixed(2)
+                  }));
+              },
+              pieOption() {
+                  return {
+                      tooltip: {
+                          trigger: 'item',
+                          formatter: '{b}: {c} 元 ({d}%)'
+                      },
+                      legend: {
+                          orient: 'horizontal',
+                          bottom: 0
+                      },
+                      series: [
+                          {
+                              type: 'pie',
+                              radius: ['40%', '70%'],
+                              avoidLabelOverlap: true,
+                              itemStyle: {
+                                  borderRadius: 6,
+                                  borderColor: '#fff',
+                                  borderWidth: 2
+                              },
+                              label: {
+                                  show: true,
+                                  formatter: '{b}\n{d}%'
+                              },
+                              data: [
+                                  { value: this.stock, name: '股票', itemStyle: { color: '#e74c3c' } },
+                                  { value: this.deposit, name: '存款', itemStyle: { color: '#3498db' } },
+                                  { value: this.currency, name: '货币基金', itemStyle: { color: '#2ecc71' } },
+                                  { value: this.cash + this.bank, name: '现金+银行活期', itemStyle: { color: '#f39c12' } }
+                              ]
+                          }
+                      ]
+                  };
+              }
+          }
+      });
+      app.component('v-chart', VueECharts);
+      app.mount('#app');
+      </script>
+</body>
+</html>
