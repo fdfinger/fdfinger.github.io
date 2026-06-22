@@ -103,7 +103,7 @@
               saveData() {
                   const data = { cash: this.cash, stock: this.stock, currency: this.currency, deposit: this.deposit, bank: this.bank };
                   localStorage.setItem('finance_data', JSON.stringify(data));
-                  ElMessage.success('保存成功');
+                  ElementPlus.ElMessage.success('保存成功');
               },
               loadData() {
                   const saved = localStorage.getItem('finance_data');
