@@ -42,6 +42,9 @@
         <el-form-item label="银行活期">
           <el-input-number v-model="bank" :min="0" :step="100" controls-position="right" />
         </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="saveData">保存</el-button>
+        </el-form-item>
       </el-form>
 
       <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
@@ -94,6 +97,25 @@
           },
           mounted() {
               document.getElementById('loading').style.display = 'none';
+              this.loadData();
+          },
+          methods: {
+              saveData() {
+                  const data = { cash: this.cash, stock: this.stock, currency: this.currency, deposit: this.deposit, bank: this.bank };
+                  localStorage.setItem('finance_data', JSON.stringify(data));
+                  ElMessage.success('保存成功');
+              },
+              loadData() {
+                  const saved = localStorage.getItem('finance_data');
+                  if (saved) {
+                      const data = JSON.parse(saved);
+                      this.cash = data.cash;
+                      this.stock = data.stock;
+                      this.currency = data.currency;
+                      this.deposit = data.deposit;
+                      this.bank = data.bank;
+                  }
+              }
           },
           computed: {
               total() {
